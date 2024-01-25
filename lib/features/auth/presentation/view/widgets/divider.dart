@@ -6,24 +6,28 @@ class  DividerWidget extends StatelessWidget {
 final String textDivider;
   @override
   Widget build(BuildContext context) {
+    
     return Row(
       children: [
-        const SizedBox(
-          width: 100,
-          child:   Divider(
-            color: Colors.grey,
-            height: 100,
+        const Flexible(
+          child:  SizedBox(
+            width: 100,
+            child:   Divider(
+              color: Colors.grey,
+              height: 45,
+            ),
           ),
         ),
         const SizedBox(width: 20,),
         Text(textDivider,style: TextStyles.textStyle14,),
         const SizedBox(width: 20,),
-        const SizedBox(
-          width: 100,
-          child:   Divider(
-            color: Colors.grey,
-            height: 100,
-            
+        const Flexible(
+          child:  SizedBox(
+            width: 100,
+            child:   Divider(
+              color: Colors.grey,
+             height: 45,
+            ),
           ),
         ),
       ],

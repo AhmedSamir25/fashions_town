@@ -9,31 +9,31 @@ import 'social_media_auth.dart';
 
 
 
-class SignInViewBody extends StatelessWidget {
-  const SignInViewBody({super.key});
+class SignUpViewBody extends StatelessWidget {
+  const SignUpViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     double heightMedia = MediaQuery.of(context).size.height;
      double widthMedia = MediaQuery.of(context).size.width;   
     return  Padding(
-      padding:const  EdgeInsets.only(top:104,left: 24,right: 24),
+      padding:const  EdgeInsets.only(top:80,left: 24,right: 24),
       child:  ListView(
         children: [
           const HeaderBodyText(
-            textHeader: 'Sign In',
-            textBody: 'Hi Welcome back',
+            textHeader: 'Creaye Account',
+            textBody: 'Hi fill your information below or register\n           with your social account.',
           ),
-         SizedBox(height: heightMedia * 0.07,),
+         SizedBox(height: heightMedia * 0.06,),
+          const CustomTextField(labelText: 'Name',keyboardType: TextInputType.text),
+         SizedBox(height: heightMedia * 0.02,),
          const CustomTextField(labelText: 'Email',keyboardType: TextInputType.emailAddress),
          SizedBox(height: heightMedia * 0.02,),
           const CustomTextField(labelText: 'Password',keyboardType: TextInputType.visiblePassword,),
-          SizedBox(height: heightMedia * 0.01,),
-          Align(
-            alignment: Alignment.topRight,
-            child: TextButton(onPressed: (){}, child: Text('Forgot Password?'))),
-            CustomSignButton(textButton: 'Sign In',heightButton: heightMedia*0.07, widthButton: widthMedia*0.9,),
-            const DividerWidget(textDivider: 'Or Sign In With',),
+          SizedBox(height: heightMedia * 0.02,),
+         
+            CustomSignButton(textButton: 'Sign Up',heightButton: heightMedia*0.07, widthButton: widthMedia*0.9,),
+            const DividerWidget(textDivider: 'Or Sign Up With',),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -41,16 +41,16 @@ class SignInViewBody extends StatelessWidget {
                 SocialAuthButton(socialAuthIcon:'assets/image/facebook.png' ,heightButton: heightMedia*0.07, widthButton: widthMedia*0.2,),
               ],
             ),
-        Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
-                Text('Don’t have an account',style: TextStyles.textStyle14,),
-                TextButton(onPressed: (){}, child:  Text('Sign Up',style: TextStyles.textStyle14.copyWith(
-                  color: appColor,
-                ),))
+                Text('Already have an acount?',style: TextStyles.textStyle14,),
+                TextButton(onPressed: (){}, child: Text('Sign In',style: TextStyles.textStyle14.copyWith(
+                  color: appColor,),
+                  ),
+                  ),
               ] 
             ),
-        
         ],
       ),
     );
