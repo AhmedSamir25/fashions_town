@@ -1,4 +1,5 @@
 import 'package:fashionstown/core/theme/colors.dart';
+import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomSignButton extends StatelessWidget {
@@ -14,7 +15,7 @@ final double widthButton;
       fixedSize: MaterialStatePropertyAll(Size(widthButton, heightButton),),
       backgroundColor: const MaterialStatePropertyAll(appColor)
     ),
-     child: Text(textButton,style:const TextStyle(color: Colors.white),)
+     child: Text(textButton,style: TextStyles.textStyle20,)
      );
   }
 }
