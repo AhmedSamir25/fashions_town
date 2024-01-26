@@ -1,8 +1,6 @@
 import 'package:fashionstown/core/theme/colors.dart';
-import 'package:fashionstown/features/auth/presentation/view/widgets/verify_code.dart';
-//import 'package:fashionstown/features/auth/presentation/view/sign_in_view.dart';
-//import 'package:fashionstown/features/auth/presentation/view/sign_up_view.dart';
 import 'package:flutter/material.dart';
+import 'features/auth/presentation/view/widgets/forgot_password.dart';
 
 void main() {
   runApp(const Fashionstown());

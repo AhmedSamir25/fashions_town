@@ -6,8 +6,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'custom_text_button.dart';
 
-class ForgotPassword extends StatelessWidget {
-  const ForgotPassword({super.key});
+class VerifyCodeView extends StatelessWidget {
+  const VerifyCodeView({super.key});
 
   @override
   Widget build(BuildContext context) {
