@@ -2,15 +2,14 @@ import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.labelText, required this.keyboardType});
-  final String labelText;
-  final TextInputType keyboardType;
+  const CustomTextField({super.key});
+
   @override
   Widget build(BuildContext context) {
     return  TextField(
       cursorColor: appColor,
       decoration: InputDecoration(
-        label: Text(labelText),   
+        label:const Text('Search'),   
         labelStyle:const TextStyle(color: textColor),     
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
@@ -20,7 +19,6 @@ class CustomTextField extends StatelessWidget {
           borderSide: BorderSide(color: appColor,),
         )
       ),
-      keyboardType: keyboardType,
     );
   }
 }

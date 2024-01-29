@@ -44,6 +44,7 @@ class VerifyCodeView extends StatelessWidget {
                 heightButton: heightMedia * 0.07,
                 widthButton: widthMedia * 0.9,
                 textButton: 'Verify',
+                onPressed: (){},
               )
             ],
           ),

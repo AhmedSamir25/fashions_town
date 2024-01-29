@@ -5,7 +5,7 @@ import 'package:fashionstown/features/auth/presentation/view/widgets/custom_sign
 import 'package:fashionstown/features/auth/presentation/view/widgets/header_body_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'custom_text_field.dart';
+import 'custom_text_field_sign.dart';
 import 'divider.dart';
 import 'social_media_auth.dart';
 
@@ -27,9 +27,9 @@ class SignInViewBody extends StatelessWidget {
             textBody: 'Hi Welcome back',
           ),
          SizedBox(height: heightMedia * 0.07,),
-         const CustomTextField(labelText: 'Email',keyboardType: TextInputType.emailAddress),
+         const CustomTextFieldSign(labelText: 'Email',keyboardType: TextInputType.emailAddress),
          SizedBox(height: heightMedia * 0.02,),
-          const CustomTextField(labelText: 'Password',keyboardType: TextInputType.visiblePassword,),
+          const CustomTextFieldSign(labelText: 'Password',keyboardType: TextInputType.visiblePassword,),
           SizedBox(height: heightMedia * 0.01,),
           Align(
             alignment: Alignment.topRight,
@@ -38,7 +38,12 @@ class SignInViewBody extends StatelessWidget {
                   AppRouter.forgotPassword,
                 );
             }, child: const Text('Forgot Password?'))),
-            CustomSignButton(textButton: 'Sign In',heightButton: heightMedia*0.07, widthButton: widthMedia*0.9,),
+            CustomSignButton(
+              textButton: 'Sign In',
+              heightButton: heightMedia*0.07,
+              widthButton: widthMedia*0.9,
+              onPressed: (){},
+              ),
             const DividerWidget(textDivider: 'Or Sign In With',),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

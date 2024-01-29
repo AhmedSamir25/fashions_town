@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "773814446469",
+    "project_id": "fashionstown-7dd91",
+    "storage_bucket": "fashionstown-7dd91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773814446469:android:87aee8a9528d873c053cec",
+        "android_client_info": {
+          "package_name": "com.example.fashionstown"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6UDsd788PWHTgiDMEEhJ5r79qZ68dV0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
