@@ -46,10 +46,13 @@ class SignInViewBody extends StatelessWidget {
               ),
             const DividerWidget(textDivider: 'Or Sign In With',),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SocialAuthButton(socialAuthIcon:'assets/image/google.png' ,heightButton: heightMedia*0.07, widthButton: widthMedia*0.2,),
-                SocialAuthButton(socialAuthIcon:'assets/image/facebook.png' ,heightButton: heightMedia*0.07, widthButton: widthMedia*0.2,),
+                SocialAuthButton(socialAuthIcon:'assets/image/google.png' ,
+                heightButton: heightMedia*0.07, widthButton: widthMedia*0.85,
+                textButton: 'Sign With Google',
+                ),
+               
               ],
             ),
         Row(

@@ -7,6 +7,7 @@ import 'package:fashionstown/features/auth/presentation/view/widgets/header_body
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/utils/assets_manager.dart';
 import '../../manager/auth_cubit/auth_state.dart';
 import 'custom_text_field_sign.dart';
 import 'divider.dart';
@@ -15,6 +16,7 @@ import 'social_media_auth.dart';
 class SignUpViewBody extends StatelessWidget {
   SignUpViewBody({super.key});
   final emaillConteoller = TextEditingController();
+  final nameConteoller = TextEditingController();
   final passwordConteoller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -35,15 +37,17 @@ class SignUpViewBody extends StatelessWidget {
           child: ListView(
             children: [
               const HeaderBodyText(
-                textHeader: 'Creaye Account',
+                textHeader: 'Create Account',
                 textBody:
                     'Hi fill your information below or register\n           with your social account.',
               ),
               SizedBox(
                 height: heightMedia * 0.06,
               ),
-              const CustomTextFieldSign(
-                  labelText: 'Name', keyboardType: TextInputType.text),
+              CustomTextFieldSign(
+                controller: nameConteoller,
+                  labelText: 'Name',
+                   keyboardType: TextInputType.text),
               SizedBox(
                 height: heightMedia * 0.02,
               ),
@@ -70,6 +74,7 @@ class SignUpViewBody extends StatelessWidget {
                   if (emaillConteoller.text.isNotEmpty &&
                       passwordConteoller.text.isNotEmpty) {
                     BlocProvider.of<AuthCubit>(context).registerWithEmail(
+                      name: nameConteoller.text,
                         email: emaillConteoller.text,
                         password: passwordConteoller.text);
                   } else {
@@ -86,17 +91,13 @@ class SignUpViewBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SocialAuthButton(
-                    socialAuthIcon: 'assets/image/google.png',
-                    heightButton: heightMedia * 0.07,
-                    widthButton: widthMedia * 0.2,
+                    socialAuthIcon: AssetsManager.googleAuth,
+                    heightButton: heightMedia*0.07, 
+                    widthButton: widthMedia*0.85,
+                    textButton: 'Sign With Google',
                     onPressed: (){
                        BlocProvider.of<AuthCubit>(context).signInWithGoogle();
                     },
-                  ),
-                  SocialAuthButton(
-                    socialAuthIcon: 'assets/image/facebook.png',
-                    heightButton: heightMedia * 0.07,
-                    widthButton: widthMedia * 0.2,
                   ),
                 ],
               ),
