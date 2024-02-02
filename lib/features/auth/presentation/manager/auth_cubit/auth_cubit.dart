@@ -7,45 +7,71 @@ import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(InitialAppState());
-  void registerWithEmail(
-      {required String email, required String password,required String name,}) async {
-        
+  // create user
+  void registerWithEmail({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       if (userCredential.user?.uid != null) {
-        await sendUserDataToFirebase(userId: userCredential.user!.uid,name: name,email:email ,);
-        emit(UserCreatedSuccessState());
+        await sendUserDataToFirebase(
+          userId: userCredential.user!.uid,
+          name: name,
+          email: email,
+        );
+        emit(UserSignSuccessState());
       }
     } on FirebaseAuthException catch (e) {
       emit(FeiledCreatedUserState(massage: e.message!));
     }
   }
 
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+// SignIn 
+  
+  void signIn({required String email, required String password}) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+          if (credential.user?.uid != null) {
+            emit(UserSignSuccessState());
+          }
+    } on FirebaseAuthException catch (e) {
+      emit(FeiledCreatedUserState(massage: e.message!));
+    }
+  }
 
-    // Obtain the auth details from the request
+// Sign with Google
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
-
-    // Create a new credential
+            await sendUserDataToFirebase(email:googleUser!.email ,name:googleUser.displayName??'unkown' ,userId:googleUser.id,);
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken, 
+      accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-
-    // Once signed in, return the UserCredential
+    emit(UserSignSuccessState());
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-  Future<void>sendUserDataToFirebase({required String userId,required String name,required String email})async{
+
+// send user data to firebase
+  
+  Future<void> sendUserDataToFirebase(
+      {required String userId,
+      required String name,
+      required String email}) async {
     try {
-          UserModel userModel = UserModel(email: email, name: name, userId: userId);
-    await FirebaseFirestore.instance.collection('User').doc(userId).set(userModel.toJson());
-    } on FirebaseException catch(e){
-      print('ussssssssssssssssssssser======$userId');
-      print(e);
+      UserModel userModel = UserModel(email: email, name: name, userId: userId);
+      await FirebaseFirestore.instance
+          .collection('User')
+          .doc(userId)
+          .set(userModel.toJson());
+    } on FirebaseException catch (e) {
+      emit(FeiledSendUserDataState(massage: e.message!));
     }
   }
 }

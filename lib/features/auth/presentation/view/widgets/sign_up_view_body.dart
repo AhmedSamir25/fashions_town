@@ -15,7 +15,7 @@ import 'social_media_auth.dart';
 
 class SignUpViewBody extends StatelessWidget {
   SignUpViewBody({super.key});
-  final emaillConteoller = TextEditingController();
+  final emailConteoller = TextEditingController();
   final nameConteoller = TextEditingController();
   final passwordConteoller = TextEditingController();
   @override
@@ -27,8 +27,12 @@ class SignUpViewBody extends StatelessWidget {
         if (state is FeiledCreatedUserState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor, content: Text(state.massage)));
+        }else if(state is FeiledSendUserDataState){
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: errorColor, content: Text(emaillConteoller.toString())));
+              backgroundColor: errorColor, content: Text(state.massage)));
+        }else if(state is UserSignSuccessState){
+              GoRouter.of(context).pushReplacement(
+              AppRouter.homeView);
         }
       },
       builder: (context, state) {
@@ -52,7 +56,7 @@ class SignUpViewBody extends StatelessWidget {
                 height: heightMedia * 0.02,
               ),
               CustomTextFieldSign(
-                  controller: emaillConteoller,
+                  controller: emailConteoller,
                   labelText: 'Email',
                   keyboardType: TextInputType.emailAddress),
               SizedBox(
@@ -71,16 +75,30 @@ class SignUpViewBody extends StatelessWidget {
                 heightButton: heightMedia * 0.07,
                 widthButton: widthMedia * 0.9,
                 onPressed: () {
-                  if (emaillConteoller.text.isNotEmpty &&
-                      passwordConteoller.text.isNotEmpty) {
+                  if (emailConteoller.text.isNotEmpty &&
+                      passwordConteoller.text.isNotEmpty && nameConteoller.text.isNotEmpty) {
                     BlocProvider.of<AuthCubit>(context).registerWithEmail(
                       name: nameConteoller.text,
-                        email: emaillConteoller.text,
+                        email: emailConteoller.text,
                         password: passwordConteoller.text);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: errorColor,
-                        content: Text('Email And Password Is Empty')));
+                  }else {
+                    if (emailConteoller.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: errorColor,
+                          content: Text('Check Email Field Is Empty')));
+                    } else if (passwordConteoller.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: errorColor,
+                          content: Text('Check Password Field Is Empty')));
+                    }else if (nameConteoller.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: errorColor,
+                          content: Text('Check Name Field Is Empty')));
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: errorColor,
+                          content: Text('Check Password And Email Field Is Empty')));
+                    }
                   }
                 },
               ),
