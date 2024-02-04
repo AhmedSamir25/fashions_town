@@ -27,6 +27,7 @@ class BannerSwipList extends StatelessWidget {
           alignment: Alignment.bottomCenter,
         ),
         autoplay: true,
+        duration: 10,
       ),
     );
   }
