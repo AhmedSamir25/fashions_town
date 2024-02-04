@@ -1,12 +1,12 @@
-import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:fashionstown/features/auth/presentation/view/sign_in_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/custom_sign_button.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/header_body_text.dart';
+import 'package:fashionstown/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/assets_manager.dart';
 import '../../manager/auth_cubit/auth_state.dart';
 import 'custom_text_field_sign.dart';
@@ -27,12 +27,11 @@ class SignUpViewBody extends StatelessWidget {
         if (state is FeiledCreatedUserState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor, content: Text(state.massage)));
-        }else if(state is FeiledSendUserDataState){
+        } else if (state is FeiledSendUserDataState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor, content: Text(state.massage)));
-        }else if(state is UserSignSuccessState){
-              GoRouter.of(context).pushReplacement(
-              AppRouter.homeView);
+        } else if (state is UserSignSuccessState) {
+                                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const HomeView()));
         }
       },
       builder: (context, state) {
@@ -49,9 +48,9 @@ class SignUpViewBody extends StatelessWidget {
                 height: heightMedia * 0.06,
               ),
               CustomTextFieldSign(
-                controller: nameConteoller,
+                  controller: nameConteoller,
                   labelText: 'Name',
-                   keyboardType: TextInputType.text),
+                  keyboardType: TextInputType.text),
               SizedBox(
                 height: heightMedia * 0.02,
               ),
@@ -76,12 +75,13 @@ class SignUpViewBody extends StatelessWidget {
                 widthButton: widthMedia * 0.9,
                 onPressed: () {
                   if (emailConteoller.text.isNotEmpty &&
-                      passwordConteoller.text.isNotEmpty && nameConteoller.text.isNotEmpty) {
+                      passwordConteoller.text.isNotEmpty &&
+                      nameConteoller.text.isNotEmpty) {
                     BlocProvider.of<AuthCubit>(context).registerWithEmail(
-                      name: nameConteoller.text,
+                        name: nameConteoller.text,
                         email: emailConteoller.text,
                         password: passwordConteoller.text);
-                  }else {
+                  } else {
                     if (emailConteoller.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: errorColor,
@@ -90,14 +90,15 @@ class SignUpViewBody extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: errorColor,
                           content: Text('Check Password Field Is Empty')));
-                    }else if (nameConteoller.text.isEmpty){
+                    } else if (nameConteoller.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: errorColor,
                           content: Text('Check Name Field Is Empty')));
-                    }else{
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: errorColor,
-                          content: Text('Check Password And Email Field Is Empty')));
+                          content:
+                              Text('Check Password And Email Field Is Empty')));
                     }
                   }
                 },
@@ -110,11 +111,11 @@ class SignUpViewBody extends StatelessWidget {
                 children: [
                   SocialAuthButton(
                     socialAuthIcon: AssetsManager.googleAuth,
-                    heightButton: heightMedia*0.07, 
-                    widthButton: widthMedia*0.85,
+                    heightButton: heightMedia * 0.07,
+                    widthButton: widthMedia * 0.85,
                     textButton: 'Sign With Google',
-                    onPressed: (){
-                       BlocProvider.of<AuthCubit>(context).signInWithGoogle();
+                    onPressed: () {
+                      BlocProvider.of<AuthCubit>(context).signInWithGoogle();
                     },
                   ),
                 ],
@@ -126,9 +127,10 @@ class SignUpViewBody extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    GoRouter.of(context).push(
-                      AppRouter.signIn,
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignInView()));
                   },
                   child: Text(
                     'Sign In',

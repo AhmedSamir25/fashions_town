@@ -5,10 +5,10 @@ import 'package:fashionstown/features/home/presentation/view/home_view.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
-   static const signIn = '/';
+   static const signIn = '/signIn';
    static const signUp = '/signUp';
    static const forgotPassword = '/ForgotPassword';
-   static const homeView = '/HomeView';
+   static const homeView = '/';
    static final router = GoRouter(
     routes: [
       GoRoute(

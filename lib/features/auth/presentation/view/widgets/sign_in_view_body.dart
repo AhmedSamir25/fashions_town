@@ -1,13 +1,14 @@
-import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:fashionstown/features/auth/presentation/manager/auth_cubit/auth_state.dart';
+import 'package:fashionstown/features/auth/presentation/view/sign_up_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/custom_sign_button.dart';
+import 'package:fashionstown/features/auth/presentation/view/widgets/forgot_password.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/header_body_text.dart';
+import 'package:fashionstown/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'custom_text_field_sign.dart';
 import 'divider.dart';
 import 'social_media_auth.dart';
@@ -25,9 +26,9 @@ class SignInViewBody extends StatelessWidget {
         if (state is FeiledCreatedUserState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor, content: Text(state.massage)));
-        }else if(state is UserSignSuccessState){
-              GoRouter.of(context).pushReplacement(
-              AppRouter.homeView);
+        } else if (state is UserSignSuccessState) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeView()));
         }
       },
       builder: (context, state) {
@@ -61,9 +62,10 @@ class SignInViewBody extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: TextButton(
                       onPressed: () {
-                        GoRouter.of(context).push(
-                          AppRouter.forgotPassword,
-                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ForgotPassword()));
                       },
                       child: const Text('Forgot Password?'))),
               CustomSignButton(
@@ -85,10 +87,11 @@ class SignInViewBody extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: errorColor,
                           content: Text('Check Password Field Is Empty')));
-                    }else{
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: errorColor,
-                          content: Text('Check Password And Email Field Is Empty')));
+                          content:
+                              Text('Check Password And Email Field Is Empty')));
                     }
                   }
                 },
@@ -104,7 +107,7 @@ class SignInViewBody extends StatelessWidget {
                     widthButton: widthMedia * 0.85,
                     textButton: 'Sign With Google',
                     onPressed: () {
-                       BlocProvider.of<AuthCubit>(context).signInWithGoogle();
+                      BlocProvider.of<AuthCubit>(context).signInWithGoogle();
                     },
                   ),
                 ],
@@ -116,9 +119,10 @@ class SignInViewBody extends StatelessWidget {
                 ),
                 TextButton(
                     onPressed: () {
-                      GoRouter.of(context).push(
-                        AppRouter.signUp,
-                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpView()));
                     },
                     child: Text(
                       'Sign Up',
