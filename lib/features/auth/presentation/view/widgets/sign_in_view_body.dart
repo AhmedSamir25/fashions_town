@@ -6,7 +6,7 @@ import 'package:fashionstown/features/auth/presentation/view/sign_up_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/custom_sign_button.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/forgot_password.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/header_body_text.dart';
-import 'package:fashionstown/features/home/presentation/view/home_view.dart';
+import 'package:fashionstown/features/home/presentation/view/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'custom_text_field_sign.dart';
@@ -28,7 +28,7 @@ class SignInViewBody extends StatelessWidget {
               backgroundColor: errorColor, content: Text(state.massage,style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
         } else if (state is UserSignSuccessState) {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeView()));
+              MaterialPageRoute(builder: (context) => const BottomNavigationBarGNav()));
         }
       },
       builder: (context, state) {

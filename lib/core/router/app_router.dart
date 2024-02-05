@@ -1,7 +1,7 @@
 import 'package:fashionstown/features/auth/presentation/view/sign_in_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/sign_up_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/forgot_password.dart';
-import 'package:fashionstown/features/home/presentation/view/home_view.dart';
+import 'package:fashionstown/features/home/presentation/view/bottom_navigation_bar.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -24,7 +24,7 @@ abstract class AppRouter {
         builder: (context, state) =>  ForgotPassword(),
       ),
       GoRoute(path: homeView,
-      builder: (context, state) => const HomeView(),
+      builder: (context, state) => const BottomNavigationBarGNav(),
       ),
     ],
       );
