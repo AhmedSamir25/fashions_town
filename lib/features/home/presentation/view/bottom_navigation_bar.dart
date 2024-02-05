@@ -29,7 +29,7 @@ class _BottomNavigationBarGNavState extends State<BottomNavigationBarGNav> {
         },
         activeColor: appColor,
       iconSize: 30,
-      tabs: [
+      tabs: const[
         GButton(icon: Icons.home,
         text: 'Home',
         ),
