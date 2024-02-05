@@ -1,4 +1,5 @@
 import 'package:fashionstown/core/utils/check_login_state.dart';
+import 'package:fashionstown/features/auth/data/repository/auth_repo.dart';
 import 'package:fashionstown/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +20,11 @@ class Fashionstown extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+     final AuthRepository authRepository = AuthRepository();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit(),
+          create: (context) => AuthCubit(authRepository),
         ),
       ],
       child: const CheckUserLogin(),

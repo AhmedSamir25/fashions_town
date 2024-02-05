@@ -1,88 +1,50 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fashionstown/features/auth/data/model/user_model.dart';
+import 'package:fashionstown/features/auth/data/repository/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'auth_state.dart';
 
+
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(InitialAppState());
-  // create user
+  final AuthRepository _authRepository;
+
+  AuthCubit(this._authRepository) : super(InitialAppState());
+
   void registerWithEmail({
     required String email,
     required String password,
     required String name,
   }) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user?.uid != null) {
-        await sendUserDataToFirebase(
-          userId: userCredential.user!.uid,
-          name: name,
-          email: email,
-        );
-        emit(UserSignSuccessState());
-      }
-    } on FirebaseAuthException catch (e) {
-      emit(FeiledCreatedUserState(massage: e.message!));
+      await _authRepository.registerWithEmail(email, password, name);
+      emit(UserSignSuccessState());
+    } catch (e) {
+      emit(FeiledCreatedUserState(massage: e.toString()));
     }
   }
 
-// SignIn 
-  
   void signIn({required String email, required String password}) async {
     try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-          if (userCredential.user?.uid != null) {
-            emit(UserSignSuccessState());
-          }
-    } on FirebaseAuthException catch (e) {
-      emit(FeiledCreatedUserState(massage: e.message!));
+      await _authRepository.signIn(email, password);
+      emit(UserSignSuccessState());
+    } catch (e) {
+      emit(FeiledCreatedUserState(massage: e.toString()));
     }
   }
 
-// Sign with Google
-
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-            await sendUserDataToFirebase(email:googleUser!.email ,name:googleUser.displayName??'unkown' ,userId:googleUser.id,);
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    emit(UserSignSuccessState());
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+  void signInWithGoogle() async {
+    try {
+      await _authRepository.signInWithGoogle();
+      emit(UserSignSuccessState());
+    } catch (e) {
+      emit(FeiledCreatedUserState(massage: e.toString()));
+    }
   }
 
-//Reset Password
-  Future<void> resetPassword({required String email})async{
+  Future<void> resetPassword({required String email}) async {
     try {
-      await FirebaseAuth.instance
-    .sendPasswordResetEmail(email: email);
+      await _authRepository.resetPassword(email);
       emit(SuccessResetPasswordState());
-    }on FirebaseAuthException catch (e) {
-      emit(FeiledResetPasswordState(massage: e.message!));
-    }
-  }
-
-// send user data to firebase
-  
-  Future<void> sendUserDataToFirebase(
-      {required String userId,
-      required String name,
-      required String email}) async {
-    try {
-      UserModel userModel = UserModel(email: email, name: name, userId: userId);
-      await FirebaseFirestore.instance
-          .collection('User')
-          .doc(userId)
-          .set(userModel.toJson());
-    } on FirebaseException catch (e) {
-      emit(FeiledSendUserDataState(massage: e.message!));
+    } catch (e) {
+      emit(FeiledResetPasswordState(massage: e.toString()));
     }
   }
 }

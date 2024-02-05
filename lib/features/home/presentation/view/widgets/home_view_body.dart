@@ -7,7 +7,7 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double heightMedia = MediaQuery.of(context).size.height;
-    final double widthMedia = MediaQuery.of(context).size.width;
+    //final double widthMedia = MediaQuery.of(context).size.width;
     
     return SafeArea(
       child: Padding(
