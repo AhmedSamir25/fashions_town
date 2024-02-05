@@ -1,4 +1,6 @@
+import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/banner_swip_list.dart';
+import 'package:fashionstown/features/home/presentation/view/widgets/lates_arrival_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -11,10 +13,18 @@ class HomeViewBody extends StatelessWidget {
     
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(top: 24),
+        padding: const EdgeInsets.only(top: 24,right: 16,left: 16),
         child: Column(
           children: [
-            BannerSwipList(heightMedia: heightMedia*0.24)
+            BannerSwipList(heightMedia: heightMedia*0.24),
+            SizedBox(height: heightMedia*0.07,),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text('Lates arrival',style: TextStyles.textStyle18,)),
+               SizedBox(height: heightMedia*0.02,),
+              SizedBox(
+                height: heightMedia*0.20,
+                child: const LatesArrivalList()),
           ],
         ),
       ),
