@@ -58,6 +58,17 @@ class AuthCubit extends Cubit<AuthState> {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+//Reset Password
+  Future<void> resetPassword({required String email})async{
+    try {
+      await FirebaseAuth.instance
+    .sendPasswordResetEmail(email: email);
+      emit(SuccessResetPasswordState());
+    }on FirebaseAuthException catch (e) {
+      emit(FeiledResetPasswordState(massage: e.message!));
+    }
+  }
+
 // send user data to firebase
   
   Future<void> sendUserDataToFirebase(

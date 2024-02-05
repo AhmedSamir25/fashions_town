@@ -26,12 +26,23 @@ class SignUpViewBody extends StatelessWidget {
       listener: (context, state) {
         if (state is FeiledCreatedUserState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: errorColor, content: Text(state.massage)));
+              backgroundColor: errorColor,
+              content: Text(
+                state.massage,
+                style: TextStyles.textStyle14
+                    .copyWith(color: textButtonAndMassage),
+              )));
         } else if (state is FeiledSendUserDataState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: errorColor, content: Text(state.massage)));
+              backgroundColor: errorColor,
+              content: Text(
+                state.massage,
+                style: TextStyles.textStyle14
+                    .copyWith(color: textButtonAndMassage),
+              )));
         } else if (state is UserSignSuccessState) {
-                                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const HomeView()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeView()));
         }
       },
       builder: (context, state) {

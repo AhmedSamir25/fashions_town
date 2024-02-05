@@ -25,7 +25,7 @@ class SignInViewBody extends StatelessWidget {
       listener: (context, state) {
         if (state is FeiledCreatedUserState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: errorColor, content: Text(state.massage)));
+              backgroundColor: errorColor, content: Text(state.massage,style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
         } else if (state is UserSignSuccessState) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const HomeView()));
@@ -65,7 +65,7 @@ class SignInViewBody extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ForgotPassword()));
+                                builder: (context) =>  ForgotPassword()));
                       },
                       child: const Text('Forgot Password?'))),
               CustomSignButton(

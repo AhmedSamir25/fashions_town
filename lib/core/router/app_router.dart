@@ -21,7 +21,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: forgotPassword,
-        builder: (context, state) => const ForgotPassword(),
+        builder: (context, state) =>  ForgotPassword(),
       ),
       GoRoute(path: homeView,
       builder: (context, state) => const HomeView(),

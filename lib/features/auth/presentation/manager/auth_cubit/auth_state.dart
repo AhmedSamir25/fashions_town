@@ -13,3 +13,10 @@ class FeiledSendUserDataState extends AuthState {
   String massage;
   FeiledSendUserDataState({required  this.massage});
 }
+
+class FeiledResetPasswordState extends AuthState {
+  String massage;
+  FeiledResetPasswordState({required  this.massage});
+}
+
+class SuccessResetPasswordState extends AuthState {}
