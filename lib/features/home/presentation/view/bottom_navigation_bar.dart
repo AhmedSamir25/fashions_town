@@ -1,5 +1,6 @@
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/features/home/presentation/view/home_view.dart';
+import 'package:fashionstown/features/search/presentation/view/search_view.dart';
 import 'package:fashionstown/features/settings/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -15,6 +16,7 @@ class _BottomNavigationBarGNavState extends State<BottomNavigationBarGNav> {
    int _selectedIndex = 0;
   final List<Widget> _tabs =[
     const HomeView(),
+    const SearchView(),
     const SettingsView(),
   ];
   @override

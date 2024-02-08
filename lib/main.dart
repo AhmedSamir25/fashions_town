@@ -1,6 +1,7 @@
 import 'package:fashionstown/core/utils/check_login_state.dart';
 import 'package:fashionstown/features/auth/data/repository/auth_repo.dart';
 import 'package:fashionstown/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +27,8 @@ class Fashionstown extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthCubit(authRepository),
         ),
+        BlocProvider(
+          create: (context)=> ProductCubit()..getProductData()),
       ],
       child: const CheckUserLogin(),
     );

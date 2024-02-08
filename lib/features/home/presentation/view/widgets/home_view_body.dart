@@ -29,7 +29,7 @@ class HomeViewBody extends StatelessWidget {
               SizedBox(
                 height: heightMedia*0.20,
                 child: const LatesArrivalList()),
-                CategoryItemGrid(),
+                const CategoryItemGrid(),
           ],
         ),
       ),
