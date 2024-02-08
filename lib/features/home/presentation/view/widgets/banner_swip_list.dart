@@ -1,5 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:fashionstown/core/utils/assets_manager.dart';
+import 'package:fashionstown/core/constant/assets_manager.dart';
 import 'package:flutter/material.dart';
 
 class BannerSwipList extends StatelessWidget {

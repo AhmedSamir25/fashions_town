@@ -1,4 +1,4 @@
-import 'package:fashionstown/core/utils/list_category_colors.dart';
+import 'package:fashionstown/core/theme/list_category_colors.dart';
 import 'package:fashionstown/features/home/data/category_item_data.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
-import 'package:fashionstown/core/utils/assets_manager.dart';
+import 'package:fashionstown/core/constant/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

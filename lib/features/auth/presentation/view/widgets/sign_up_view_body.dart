@@ -7,7 +7,7 @@ import 'package:fashionstown/features/auth/presentation/view/widgets/header_body
 import 'package:fashionstown/features/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/assets_manager.dart';
+import '../../../../../core/constant/assets_manager.dart';
 import '../../manager/auth_cubit/auth_state.dart';
 import 'custom_text_field_sign.dart';
 import 'divider.dart';

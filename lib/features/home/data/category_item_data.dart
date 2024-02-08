@@ -1,4 +1,4 @@
-import 'package:fashionstown/core/utils/assets_manager.dart';
+import 'package:fashionstown/core/constant/assets_manager.dart';
 import 'package:fashionstown/features/home/data/model/category_model.dart';
 
 class  CategoryItemData{

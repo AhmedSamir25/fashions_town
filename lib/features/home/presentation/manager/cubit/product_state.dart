@@ -18,3 +18,5 @@ final class FieldGetProductData extends ProductState{
   final String massage;
  const FieldGetProductData({required this.massage});
 }
+
+final class LoadingGetProductData extends ProductState{}

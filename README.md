@@ -1,4 +1,4 @@
-# fashionstown
+# Galaxy Store
 
 A new Flutter project.
 

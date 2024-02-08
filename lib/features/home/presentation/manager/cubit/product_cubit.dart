@@ -15,6 +15,7 @@ ProductModel? productModel;
   }
   Future<List<ProductModel>> getProductData() async {
     try {
+      emit(LoadingGetProductData());
        await FirebaseFirestore.instance.collection('products').orderBy('time',
       descending: false).get().then((productsSnapshot){
         products.clear();
@@ -23,7 +24,7 @@ ProductModel? productModel;
         }
       }
       );
-      emit(GetProductDataSuccess());
+     // emit(GetProductDataSuccess());
       return products;
        
     }on FirebaseException catch (e) {
