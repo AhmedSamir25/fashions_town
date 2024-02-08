@@ -7,8 +7,8 @@ class LoadingShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Color.fromARGB(255, 202, 203, 235),
-      highlightColor: Color.fromARGB(255, 252, 227, 227),
+      baseColor: const Color.fromARGB(255, 202, 203, 235),
+      highlightColor:const Color.fromARGB(255, 252, 227, 227),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

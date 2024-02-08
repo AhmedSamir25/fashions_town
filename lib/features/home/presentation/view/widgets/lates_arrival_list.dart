@@ -91,7 +91,7 @@ class LatesArrivalList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
         );
         }else if(state is FieldGetProductData){
-          return Text('');
+          return Text(state.massage);
         }else {
           return  ListView.builder(
             itemCount: 10,

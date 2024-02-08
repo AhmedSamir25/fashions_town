@@ -10,6 +10,7 @@ class ProductCubit extends Cubit<ProductState> {
   ProductCubit() : super(ProductInitial());
 ProductModel? productModel;
  List<ProductModel> products = [];
+ List<QueryDocumentSnapshot> banners = [];
   List<ProductModel> get getProducts {
     return products;
   }
@@ -24,13 +25,25 @@ ProductModel? productModel;
         }
       }
       );
-     // emit(GetProductDataSuccess());
-      return products;
+      emit(GetProductDataSuccess());
        
     }on FirebaseException catch (e) {
       emit(FieldGetProductData(massage: e.message!));
     }
     return products;
+  }
+  
+  //Get Banners
+  Future<void> getBannersData() async {
+    try {
+      emit(LoadingGetProductData());
+       final querySnapshot = await FirebaseFirestore.instance.collection('banner').get();
+         banners.clear();
+       banners.addAll(querySnapshot.docs);
+      emit(GetProductDataSuccess());
+    }on FirebaseException catch (e) {
+      emit(FieldGetProductData(massage: e.message!));
+    }
   }
 }
 
