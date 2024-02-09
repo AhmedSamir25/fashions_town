@@ -9,10 +9,7 @@ sealed class ProductState extends Equatable {
 
 final class ProductInitial extends ProductState {}
 
-final class GetProductDataSuccess extends ProductState{
-  //  final List<ProductModel> products;
-  //   const GetProductDataSuccess({required this.products});
-}
+final class GetProductDataSuccess extends ProductState{}
 
 final class FieldGetProductData extends ProductState{
   final String massage;

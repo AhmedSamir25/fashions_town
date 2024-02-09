@@ -2,18 +2,14 @@ import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key});
-
+  const SearchTextField({super.key,r, required this.onChanged  });
+final Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
-      onChanged: (value) {
-        
-      },
+      onChanged: onChanged,
        decoration: InputDecoration(
-        suffixIcon: IconButton(onPressed: () {
-          
-        }, icon: const Icon(Icons.search_rounded,size: 35,),),
+        suffixIcon: Icon(Icons.search_rounded,size: 35,),
         label: const Text('Search'),   
         labelStyle: const TextStyle(color: textColor),     
         border: OutlineInputBorder(

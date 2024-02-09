@@ -49,7 +49,7 @@ ProductModel? productModel;
     }on FirebaseException catch (e) {
       emit(FieldGetProductData(massage: e.message!));
     }
-    return products;
+    return productsCategory;
   }
 
 
