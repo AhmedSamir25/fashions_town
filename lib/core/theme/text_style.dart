@@ -7,6 +7,11 @@ abstract class TextStyles {
     fontWeight: FontWeight.w600,
     color: textColor,
   );
+   static TextStyle textStyle16 = const TextStyle(
+    fontSize: 16,
+  fontWeight: FontWeight.w500,
+    color: textColor,
+  );
      static TextStyle textStyle20 = const TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w600,

@@ -1,7 +1,7 @@
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
-import 'package:fashionstown/features/home/presentation/view/widgets/custom_button_icon.dart';
+import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,17 +71,12 @@ class LatesArrivalList extends StatelessWidget {
                     SizedBox(
                       width: widthMedia * 0.04,
                     ),
-                    Container(
-                      width: widthMedia * 0.25,
-                      height: heightMedia * 0.17,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        image: DecorationImage(
-                            image: NetworkImage(
+                    Image.network((
                                 "${productCubit.products[index].productImage}"),
-                            fit: BoxFit.fill),
-                      ),
-                    ),
+                            fit: BoxFit.fill,
+                            width: widthMedia * 0.25,
+                      height: heightMedia * 0.17,
+                            ),
                   ],
                 ),
               ),
