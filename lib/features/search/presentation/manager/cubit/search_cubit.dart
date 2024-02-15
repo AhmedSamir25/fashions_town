@@ -1,32 +1,32 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fashionstown/features/home/data/model/product_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchInitial());
-  List<ProductModel> searchproducts = [];
-
-  Future<List<ProductModel>> getProductCategory(
-      {required String productName}) async {
+   List<ProductModel> searchProducts = [];
+ List<ProductModel> streamSearchProducts = [];
+ final productDB = FirebaseFirestore.instance.collection("products");
+    void getSearchProduct({required String productName}) {
+    searchProducts.clear();
+        searchProducts = streamSearchProducts.where((element) => element.productName!.toLowerCase().startsWith(productName.toLowerCase())).toList();
+      }
+  Stream<List<ProductModel>> fetchProductsStream() {
     try {
-      emit(SearchLoading());
-      await FirebaseFirestore.instance
-          .collection('products')
-          .where("name", isEqualTo: productName)
-          .get()
-          .then((productsSnapshot) {
-        searchproducts.clear();
-        for (var element in productsSnapshot.docs) {
-          searchproducts.insert(0, ProductModel.fromFirestore(element));
+      return productDB.orderBy('time',
+      descending: false).snapshots().map((snapshot) {
+         streamSearchProducts.clear();
+        for (var element in snapshot.docs) {
+          streamSearchProducts.insert(0, ProductModel.fromFirestore(element));
         }
+        return streamSearchProducts;
       });
-      emit(SearchSuccess());
-    } on FirebaseException catch (e) {
-      emit(FieldSearch(massage: e.message!));
+    } catch (e) {
+      rethrow;
     }
-    return searchproducts;
-  }
+  }    
 }
+

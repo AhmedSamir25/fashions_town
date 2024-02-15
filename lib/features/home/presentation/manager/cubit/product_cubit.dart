@@ -12,11 +12,12 @@ ProductModel? productModel;
  List<ProductModel> products = [];
   List<ProductModel> productsCategory = [];
  List<QueryDocumentSnapshot> banners = [];
+ final productDB = FirebaseFirestore.instance.collection("products");
   
   Future<List<ProductModel>> getProductData() async {
     try {
       emit(LoadingGetProductData());
-       await FirebaseFirestore.instance.collection('products').orderBy('time',
+       await productDB.orderBy('time',
       descending: false).get().then((productsSnapshot){
         products.clear();
         for (var element in productsSnapshot.docs) {
@@ -37,7 +38,7 @@ ProductModel? productModel;
     Future<List<ProductModel>> getProductCategory({required String productCategory}) async {
     try {
       emit(LoadingGetProductData());
-       await FirebaseFirestore.instance.collection('products').where("productCategory",isEqualTo: productCategory).get().then((productsSnapshot){
+       await productDB.where("productCategory",isEqualTo: productCategory).get().then((productsSnapshot){
         productsCategory.clear();
         for (var element in productsSnapshot.docs) {
           productsCategory.insert(0, ProductModel.fromFirestore(element));
@@ -64,10 +65,5 @@ ProductModel? productModel;
     }on FirebaseException catch (e) {
       emit(FieldGetProductData(massage: e.message!));
     }
-  }
+  }  
 }
-
-
-
-
- 

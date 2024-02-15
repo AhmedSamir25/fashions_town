@@ -8,11 +8,3 @@ sealed class SearchState extends Equatable {
 }
 
 final class SearchInitial extends SearchState {}
-final class SearchSuccess extends SearchState{}
-
-final class FieldSearch extends SearchState{
-  final String massage;
- const FieldSearch({required this.massage});
-}
-
-final class SearchLoading extends SearchState{}

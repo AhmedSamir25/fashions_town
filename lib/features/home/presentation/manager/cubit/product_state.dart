@@ -17,3 +17,5 @@ final class FieldGetProductData extends ProductState{
 }
 
 final class LoadingGetProductData extends ProductState{}
+
+final class SearchSuccess extends ProductState{}

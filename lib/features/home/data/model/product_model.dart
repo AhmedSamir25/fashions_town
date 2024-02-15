@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstown/core/constant/assets_manager.dart';
 
 class ProductModel {
   String? productId;

@@ -15,9 +15,9 @@ class CustomListProducts extends StatelessWidget {
     double widthMedia = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0,),
+          padding: const EdgeInsets.only(top: 4.0,),
           child: Container(
-            width: widthMedia*1,
+            
             height: heightMedia*0.18,
             decoration: BoxDecoration(
               borderRadius:BorderRadius.circular(16),
@@ -40,7 +40,7 @@ class CustomListProducts extends StatelessWidget {
                   children: [
                     Container(
                       constraints: BoxConstraints(
-                        maxWidth: widthMedia*0.6
+                        maxWidth: widthMedia*0.59
                       ),
                       child: Text(productName,
                         style: TextStyles.textStyle16,
