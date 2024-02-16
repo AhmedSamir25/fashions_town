@@ -1,4 +1,5 @@
 import 'package:fashionstown/core/theme/colors.dart';
+import 'package:fashionstown/features/cart/presentation/view/cart_view.dart';
 import 'package:fashionstown/features/home/presentation/view/home_view.dart';
 import 'package:fashionstown/features/search/presentation/view/search_view.dart';
 import 'package:fashionstown/features/settings/settings_view.dart';
@@ -17,6 +18,7 @@ class _BottomNavigationBarGNavState extends State<BottomNavigationBarGNav> {
   final List<Widget> _tabs =[
     const HomeView(),
     const SearchView(),
+    const CartView(),
     const SettingsView(),
   ];
   @override

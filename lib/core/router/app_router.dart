@@ -2,7 +2,7 @@ import 'package:fashionstown/features/auth/presentation/view/sign_in_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/sign_up_view.dart';
 import 'package:fashionstown/features/auth/presentation/view/widgets/forgot_password.dart';
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
-import 'package:fashionstown/features/home/presentation/view/bottom_navigation_bar.dart';
+import 'package:fashionstown/core/utils/bottom_navigation_bar.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/show_category_items.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
