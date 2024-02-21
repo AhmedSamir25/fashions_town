@@ -27,4 +27,22 @@ class CartCubit extends Cubit<CartState> {
       emit(FieldGetCartProductData(massage:e.toString()));
     }
   }
+
+  Future<List<CartModel>> getCartData() async {
+   try {
+    emit(LoadingCartProductData());
+    await productDB.orderBy('time',
+      descending: false).get().then((productsSnapshot){
+        cartProduct.clear();
+        for (var element in productsSnapshot.docs) {
+          cartProduct.insert(0, CartModel.fromFirestore(element));
+        }
+        emit(GetCartProductSuccess());
+      }
+      ); 
+   }on FirebaseFirestore catch (e) {
+     emit(FieldGetCartProductData(massage: e.toString()));
+   } 
+    return cartProduct;
+  }
 }
