@@ -1,13 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstown/core/shared/set_user_id.dart';
 import 'package:fashionstown/features/auth/data/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
+  SetUserId? saveUserId;
+  
+ //Sign up 
   Future<void> registerWithEmail(
       String email, String password, String name) async {
     UserCredential userCredential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
+        SetUserId().setUserId(userId:userCredential.user!.uid );
     await sendUserDataToFirebase(
       userId: userCredential.user!.uid,
       name: name,
@@ -15,11 +20,14 @@ class AuthRepository {
     );
   }
 
+//Sign in
   Future<void> signIn(String email, String password) async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email, password: password);
+        await SetUserId().setUserId(userId:userCredential.user!.uid );
   }
 
+//Sign with google
   Future<void> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleAuth =
@@ -28,7 +36,14 @@ class AuthRepository {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+    await SetUserId().setUserId(userId:googleUser!.id);
     await FirebaseAuth.instance.signInWithCredential(credential);
+     await sendUserDataToFirebase(email:googleUser.email ,name:googleUser.displayName??'unkown' ,userId:googleUser.id,);
+       UserModel(
+    email: googleUser.email,
+    name: googleUser.displayName ?? 'unknown',
+    userId: googleUser.id,
+  );
   }
 
   Future<void> resetPassword(String email) async {

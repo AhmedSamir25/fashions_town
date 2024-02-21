@@ -1,9 +1,11 @@
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
+import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
 import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LatesArrivalList extends StatelessWidget {
   const LatesArrivalList({super.key});
@@ -12,6 +14,7 @@ class LatesArrivalList extends StatelessWidget {
     double widthMedia  = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
     final productCubit = BlocProvider.of<ProductCubit>(context);
+    final cartCubit = BlocProvider.of<CartCubit>(context);
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is GetProductDataSuccess) {
@@ -53,10 +56,17 @@ class LatesArrivalList extends StatelessWidget {
                           children: [
                             CusttomIconButton(
                               onPressed: () {},
-                              icon: const Icon(Icons.heart_broken_sharp),
+                              icon: const Icon(FontAwesomeIcons.heart),
                             ),
                             CusttomIconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                cartCubit.addCart(
+                                  productId: "${productCubit.products[index].productId}",
+                                  productName: "${productCubit.products[index].productName}",
+                                  productImage: "${productCubit.products[index].productImage}",
+                                  productPrice: "${productCubit.products[index].productPrice}",
+                                  productCategory: "${productCubit.products[index].productCategory}");
+                              },
                               icon: const Icon(Icons.add_shopping_cart),
                             )
                           ],

@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       children: [
         Image.asset(
@@ -21,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
             baseColor: appColor,
             highlightColor: highlightColor,
             child: Text(
-              'Galaxy Store',
+              "Galaxy Store",
               style: TextStyles.textStyle18,
             )),
       ],

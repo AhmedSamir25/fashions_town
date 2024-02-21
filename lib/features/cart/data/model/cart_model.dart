@@ -22,4 +22,14 @@ class CartModel {
       productImage: data['productImage'],
     );
   }
+   Map<String, dynamic> toJson() {
+    return {
+      'productId': productId,
+      'productName': productName,
+      'productImage': productImage,
+      'productPrice': productPrice,
+      'productCategory':productCategory,
+    };
+  }
 }
+
