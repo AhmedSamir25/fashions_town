@@ -1,3 +1,4 @@
+import 'package:fashionstown/features/cart/presentation/view/widgets/list_cart_product.dart';
 import 'package:flutter/material.dart';
 
 class CartViewBody extends StatelessWidget {
@@ -5,8 +6,13 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [],
+    return const Padding(
+      padding:  EdgeInsets.only(top: 12,left: 10,right: 10),
+      child:  Column(
+        children: [
+          Expanded(child: ListCartProduct()),
+        ],
+      ),
     );
   }
 }

@@ -60,9 +60,9 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                         ),
                         );
                   }else if(searchText.text.isEmpty){
-                   return  const ListTest();
+                   return  const ListProductSearch();
                   }
-                  return const ListSearchProducts();
+                  return const ListSearchedProducts();
                 }),
           ),
         ],

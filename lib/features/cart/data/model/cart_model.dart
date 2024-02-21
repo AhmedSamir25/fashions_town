@@ -16,8 +16,8 @@ class CartModel {
     Map data = doc.data() as Map<String, dynamic>;
     return CartModel(
       productId: data['productId'],
-      productName: data['name'] ?? 'uknow',
-      productPrice: data['price'],
+      productName: data['productName'] ?? 'uknow',
+      productPrice: data['productPrice'],
       productCategory: data['productCategory'],
       productImage: data['productImage'],
     );

@@ -10,7 +10,7 @@ class CartCubit extends Cubit<CartState> {
    CartCubit() : super(CartInitial());
 
   List<CartModel> cartProduct = [];
-  final productDB = FirebaseFirestore.instance.collection("products");
+  final productDB = FirebaseFirestore.instance.collection("User").doc(SetUserId().getId()).collection('Cart');
   void addCart({
     required String productId,
     required String productName,
@@ -31,13 +31,12 @@ class CartCubit extends Cubit<CartState> {
   Future<List<CartModel>> getCartData() async {
    try {
     emit(LoadingCartProductData());
-    await productDB.orderBy('time',
-      descending: false).get().then((productsSnapshot){
+    await productDB.get().then((productsSnapshot){
         cartProduct.clear();
         for (var element in productsSnapshot.docs) {
           cartProduct.insert(0, CartModel.fromFirestore(element));
         }
-        emit(GetCartProductSuccess());
+        emit(GetCartProductSuccess(cartProduct = cartProduct));
       }
       ); 
    }on FirebaseFirestore catch (e) {

@@ -5,8 +5,8 @@ import 'package:fashionstown/features/search/presentation/manager/cubit/search_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ListSearchProducts extends StatelessWidget {
-  const ListSearchProducts({
+class ListSearchedProducts extends StatelessWidget {
+  const ListSearchedProducts({
     super.key,
   });
   @override

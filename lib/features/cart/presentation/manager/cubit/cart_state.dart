@@ -16,4 +16,7 @@ final class FieldGetCartProductData extends CartState{
   const FieldGetCartProductData({required this.massage});
 }
 
-final class GetCartProductSuccess extends CartState{}
+final class GetCartProductSuccess extends CartState{
+  final List<CartModel> cartProducts;
+ const GetCartProductSuccess(this.cartProducts);
+}
