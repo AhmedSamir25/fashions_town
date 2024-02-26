@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:fashionstown/features/home/data/model/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,6 +10,7 @@ part 'product_state.dart';
 class ProductCubit extends Cubit<ProductState> {
   ProductCubit() : super(ProductInitial());
 ProductModel? productModel;
+
  List<ProductModel> products = [];
   List<ProductModel> productsCategory = [];
  List<QueryDocumentSnapshot> banners = [];
@@ -66,4 +68,5 @@ ProductModel? productModel;
       emit(FieldGetProductData(massage: e.message!));
     }
   }  
+   
 }

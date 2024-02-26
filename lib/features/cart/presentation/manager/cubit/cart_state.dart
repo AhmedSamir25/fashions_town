@@ -20,3 +20,7 @@ final class GetCartProductSuccess extends CartState{
   final List<CartModel> cartProducts;
  const GetCartProductSuccess(this.cartProducts);
 }
+
+final class AddCartProductTure extends CartState{}
+
+final class AddCartProductFalse extends CartState{}

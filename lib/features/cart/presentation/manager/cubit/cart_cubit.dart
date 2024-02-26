@@ -7,41 +7,76 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-   CartCubit() : super(CartInitial());
+  CartCubit() : super(CartInitial());
 
   List<CartModel> cartProduct = [];
-  final productDB = FirebaseFirestore.instance.collection("User").doc(SetUserId().getId()).collection('Cart');
-  void addCart({
-    required String productId,
-    required String productName,
-    required String productImage,
-    required String productPrice,
-    required String productCategory,
-  }) async{
-    try {
-      CartModel cartModel = CartModel(productId: productId, productName: productName, productImage: productImage, productPrice: productPrice, productCategory: productCategory);
-       await FirebaseFirestore.instance
-        .collection('User').doc(SetUserId().getId()).collection('Cart').doc(productId)
-        .set(cartModel.toJson());
-    }on FirebaseFirestore catch (e) {
-      emit(FieldGetCartProductData(massage:e.toString()));
-    }
-  }
+   bool isProductInCart =true ;
+  final productDB = FirebaseFirestore.instance
+      .collection("User")
+      .doc(SetUserId().getId())
+      .collection('Cart');
 
   Future<List<CartModel>> getCartData() async {
-   try {
-    emit(LoadingCartProductData());
-    await productDB.get().then((productsSnapshot){
+    try {
+      emit(LoadingCartProductData());
+      await productDB.get().then((productsSnapshot) {
         cartProduct.clear();
         for (var element in productsSnapshot.docs) {
           cartProduct.insert(0, CartModel.fromFirestore(element));
         }
         emit(GetCartProductSuccess(cartProduct = cartProduct));
-      }
-      ); 
-   }on FirebaseFirestore catch (e) {
-     emit(FieldGetCartProductData(massage: e.toString()));
-   } 
+      });
+    } on FirebaseFirestore catch (e) {
+      emit(FieldGetCartProductData(massage: e.toString()));
+    }
     return cartProduct;
   }
+  void addCart({
+  required String productId,
+  required String productName,
+  required String productImage,
+  required String productPrice,
+  required String productCategory,
+}) async {
+  CartModel cartModel = CartModel(
+    productId: productId,
+    productName: productName,
+    productImage: productImage,
+    productPrice: productPrice,
+    productCategory: productCategory,
+  );
+  bool isProductInCart = false;
+  try {
+    for (var product in cartProduct) {
+      if (product.productId == cartModel.productId) {
+        isProductInCart = true;
+        break;
+      }
+    }
+    if (isProductInCart) {
+      await FirebaseFirestore.instance
+          .collection('User')
+          .doc(SetUserId().getId())
+          .collection('Cart')
+          .doc(cartModel.productId)
+          .delete();
+    } else {
+      await FirebaseFirestore.instance
+          .collection('User')
+          .doc(SetUserId().getId())
+          .collection('Cart')
+          .doc(cartModel.productId)
+          .set(cartModel.toJson());
+    }
+  }on FirebaseFirestore catch (e) {
+    emit(FieldGetCartProductData(  massage: e.toString(),));
+  }
 }
+
+
+  
+  bool isProductsInCart({ String? productId}) {
+    bool checkCartProduct = cartProduct.any((product) => product.productId == productId);
+      return checkCartProduct;
+    }
+  }

@@ -53,10 +53,12 @@ class CustomListProducts extends StatelessWidget {
                       children: [
                         
                         CusttomIconButton(
+                          colorIcon: Colors.black,
                             icon:  Icon(Icons.add_shopping_cart,size: widthMedia*0.07),
                             onPressed: () {}),
                         SizedBox(width: widthMedia*0.07,),
                         CusttomIconButton(
+                          colorIcon: Colors.black,
                           icon:  Icon(Icons.add_shopping_cart,size: widthMedia*0.07,),
                           onPressed: () {},
                         ),

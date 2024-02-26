@@ -29,7 +29,7 @@ class Fashionstown extends StatelessWidget {
         BlocProvider(create: (context) => AuthCubit(authRepository),),
         BlocProvider(create: (context)=> ProductCubit()..getProductData()),
         BlocProvider(create: (context) => SearchCubit()..fetchProductsStream()),
-        BlocProvider(create: (context) => CartCubit()..getCartData())
+        BlocProvider(create: (context) => CartCubit()..getCartData()),
       ],
       child: const CheckUserLogin(),
     );
