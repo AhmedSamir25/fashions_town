@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
-
+  const CustomAppBar({super.key, required this.appBarText});
+final String appBarText;
   @override
   Widget build(BuildContext context) {
 
@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
             baseColor: appColor,
             highlightColor: highlightColor,
             child: Text(
-              "Galaxy Store",
+              appBarText,
               style: TextStyles.textStyle18,
             )),
       ],

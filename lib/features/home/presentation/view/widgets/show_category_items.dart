@@ -1,5 +1,5 @@
 import 'package:fashionstown/core/theme/text_style.dart';
-import 'package:fashionstown/features/home/presentation/view/widgets/custom_app_bar.dart';
+import 'package:fashionstown/core/utils/widgets/custom_app_bar.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/list_show_categoty.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class ShowCategoryItems extends StatelessWidget {
            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+              const CustomAppBar(appBarText: 'Galaxy Store'),
                     SizedBox(height: MediaQuery.of(context).size.height*0.02,),
                     Text("Category: $categoryName",style: TextStyles.textStyle18,),
                     SizedBox(height: MediaQuery.of(context).size.height*0.012,),

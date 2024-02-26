@@ -15,7 +15,7 @@ class CustomListProducts extends StatelessWidget {
     double widthMedia = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
         return Padding(
-          padding: const EdgeInsets.only(top: 4.0,),
+          padding: const EdgeInsets.only(top: 7.0,),
           child: Container(
             
             height: heightMedia*0.18,
