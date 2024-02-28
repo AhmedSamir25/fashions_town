@@ -25,4 +25,7 @@ static String mobiles = "assets/image/iphone.png";
 
   //Setting
   static String photoProfile = "assets/image/photo_profile.png";
+  static String adress = "assets/image/address.png";
+  static String order = "assets/image/shopping-bag.png";
+  static String darkMode = "assets/image/dark-mode.png";
 }
