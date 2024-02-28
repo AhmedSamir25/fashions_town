@@ -11,10 +11,13 @@ class SettingsViewBody extends StatelessWidget {
       child:  Padding(
         padding:const EdgeInsets.only(top: 70,left: 16,right: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Settings',style: TextStyles.textStyle18,),
-            SizedBox(height: MediaQuery.of(context).size.height*0.01,),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text('Settings',style: TextStyles.textStyle20.copyWith(
+                color: Colors.black
+              ),)),
+            SizedBox(height: MediaQuery.of(context).size.height*0.025,),
             const ProfileInformation(),
           ],
         ),
