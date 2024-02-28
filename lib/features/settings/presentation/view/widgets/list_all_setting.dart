@@ -14,10 +14,12 @@ final int indexList;
       child: Row(
           children: [
             Image.asset(SettingsDataList.settingsList[indexList].image,
-            width:mediaHeight*0.043 ,),
+            width:mediaWidth*0.14 ,height: mediaHeight*0.046,),
             SizedBox(width: mediaWidth *0.055,),
             Text(SettingsDataList.settingsList[indexList].name,
-            style: TextStyles.textStyle16,
+            style: TextStyles.textStyle18.copyWith(
+              fontWeight: FontWeight.w500
+            ),
             ),
           ],
       ),

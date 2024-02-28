@@ -1,6 +1,7 @@
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/list_all_setting.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/profile_info.dart';
+import 'package:fashionstown/features/settings/presentation/view/widgets/switch_dark_or_light.dart';
 import 'package:flutter/material.dart';
 
 class SettingsViewBody extends StatelessWidget {
@@ -31,6 +32,9 @@ class SettingsViewBody extends StatelessWidget {
             const Row(
               children: [
                 ListAllSetting(indexList: 2),
+                Spacer(flex: 3,),
+                SwitchDarkOrLight(),
+                Spacer(flex: 1,),
               ],
             ),
           ],
