@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,7 +33,7 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: Colors.grey[100],
+                    color: backgroundColorItem,
                   ),
                   child: Row(
                     children: [
@@ -72,8 +73,8 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                                         productId: productCubit
                                             .products[index].productId
                                             .toString())
-                                    ? Colors.orange
-                                    : Colors.blue,
+                                    ? appColor
+                                    : highlightColor,
                                 onPressed: () {
                                   cartCubit.addCart(
                                     productId:
@@ -86,6 +87,7 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                                         "${productCubit.products[index].productPrice}",
                                     productCategory:
                                         "${productCubit.products[index].productCategory}",
+                                    productCount: 1,    
                                   );
                                   BlocProvider.of<CartCubit>(context)
                                       .getCartData();

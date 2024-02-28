@@ -37,6 +37,7 @@ class CartCubit extends Cubit<CartState> {
   required String productImage,
   required String productPrice,
   required String productCategory,
+  required int productCount,
 }) async {
   CartModel cartModel = CartModel(
     productId: productId,
@@ -44,6 +45,7 @@ class CartCubit extends Cubit<CartState> {
     productImage: productImage,
     productPrice: productPrice,
     productCategory: productCategory,
+    productCount: productCount,
   );
   bool isProductInCart = false;
   try {
@@ -73,7 +75,14 @@ class CartCubit extends Cubit<CartState> {
   }
 }
 
-
+ void controlTheNumberOfItem({required String productId, required int valueButton}) async{
+  await FirebaseFirestore.instance
+          .collection('User')
+          .doc(SetUserId().getId())
+          .collection('Cart')
+          .doc(productId)
+    .update({'productCount': valueButton});
+ }
   
   bool isProductsInCart({ String? productId}) {
     bool checkCartProduct = cartProduct.any((product) => product.productId == productId);

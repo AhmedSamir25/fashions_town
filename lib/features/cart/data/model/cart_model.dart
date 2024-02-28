@@ -6,12 +6,15 @@ class CartModel {
   String? productImage;
   String? productPrice;
   String? productCategory;
+  int? productCount;
   CartModel(
       {required this.productId,
       required this.productName,
       required this.productImage,
       required this.productPrice,
-      required this.productCategory});
+      required this.productCategory,
+      required this.productCount,
+      });
   factory CartModel.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return CartModel(
@@ -20,6 +23,7 @@ class CartModel {
       productPrice: data['productPrice'],
       productCategory: data['productCategory'],
       productImage: data['productImage'],
+      productCount: data['productCount'],
     );
   }
    Map<String, dynamic> toJson() {
@@ -29,6 +33,7 @@ class CartModel {
       'productImage': productImage,
       'productPrice': productPrice,
       'productCategory':productCategory,
+      'productCount':productCount,
     };
   }
 }
