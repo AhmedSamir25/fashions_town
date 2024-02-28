@@ -1,3 +1,4 @@
+import 'package:fashionstown/features/settings/presentation/view/widgets/settings_view_body.dart';
 import 'package:flutter/material.dart';
 
 class SettingsView extends StatelessWidget {
@@ -5,6 +6,8 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      body: SettingsViewBody(),
+    );
   }
 }
