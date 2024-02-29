@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,9 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: backgroundColorItem,
+                    color: SaveThemeMode().getTheme()
+                        ? backgroundColorItemDark
+                        : backgroundColorItemLight,
                   ),
                   child: Row(
                     children: [
@@ -87,7 +90,7 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                                         "${productCubit.products[index].productPrice}",
                                     productCategory:
                                         "${productCubit.products[index].productCategory}",
-                                    productCount: 1,    
+                                    productCount: 1,
                                   );
                                   BlocProvider.of<CartCubit>(context)
                                       .getCartData();
@@ -114,11 +117,20 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                       SizedBox(
                         width: widthMedia * 0.04,
                       ),
-                      Image.network(
-                        ("${productCubit.products[index].productImage}"),
-                        fit: BoxFit.fill,
-                        width: widthMedia * 0.25,
-                        height: heightMedia * 0.17,
+                      Center(
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          width: widthMedia * 0.25,
+                          height: heightMedia * 0.17,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  "${productCubit.products[index].productImage}"),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),

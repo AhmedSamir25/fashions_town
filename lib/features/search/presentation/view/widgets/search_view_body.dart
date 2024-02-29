@@ -26,7 +26,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   Widget build(BuildContext context) {
     final search = BlocProvider.of<SearchCubit>(context);
     return Padding(
-      padding: const EdgeInsets.only(right: 12.0, left: 12.0, top: 70),
+      padding: const EdgeInsets.only(right: 12.0, left: 12.0, top: 75),
       child: Column(
         children: [
            SearchTextField(

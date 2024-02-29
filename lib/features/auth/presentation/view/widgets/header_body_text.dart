@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,9 @@ class HeaderBodyText extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text(textHeader,style: TextStyles.textStyle24,),
+          Text(textHeader,style: TextStyles.textStyle24.copyWith(
+            color:textColor,
+          ),),
           Text(textBody,style: TextStyles.textStyle14,)
         ],
       ),

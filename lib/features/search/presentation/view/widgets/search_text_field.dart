@@ -13,7 +13,7 @@ final TextEditingController controller;
        decoration: InputDecoration(
         suffixIcon: const Icon(Icons.search_rounded,size: 35,),
         label: const Text('Search'),   
-        labelStyle: const TextStyle(color: textColor),     
+        labelStyle: const TextStyle(),     
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
         ),

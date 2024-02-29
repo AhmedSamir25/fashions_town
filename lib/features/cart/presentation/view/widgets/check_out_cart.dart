@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ final double totalCart;
   Widget build(BuildContext context) {
     return  Container(
       decoration: BoxDecoration(
-        color: backgroundColorItem,
+        color: SaveThemeMode().getTheme() ? backgroundColorItemDark : backgroundColorItemLight,
         borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
