@@ -1,6 +1,4 @@
 import 'package:fashionstown/core/shared/theme_mode.dart';
-import 'package:fashionstown/core/theme/colors.dart';
-import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
 import 'package:fashionstown/features/settings/presentation/manager/dark_cubit/theme_mode_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

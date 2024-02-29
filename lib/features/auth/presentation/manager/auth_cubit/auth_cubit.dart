@@ -38,6 +38,9 @@ class AuthCubit extends Cubit<AuthState> {
       emit(FeiledCreatedUserState(massage: e.toString()));
     }
   }
+  void signOut() async{
+    await _authRepository.signOut();
+  }
 
   Future<void> resetPassword({required String email}) async {
     try {

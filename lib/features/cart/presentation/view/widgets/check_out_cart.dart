@@ -1,6 +1,7 @@
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
+import 'package:fashionstown/core/utils/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 class OrderNow extends StatelessWidget {
@@ -26,14 +27,13 @@ final double totalCart;
               const Spacer(flex: 1,),
             ],
           ),
-          ElevatedButton(
-            style: const  ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(appColor)
+           CustomElevatedButton(
+            style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(appColor),
             ),
-            onPressed: (){}, 
-          child:  Text('Order Now',style: TextStyles.textStyle16.copyWith(
-            color: textButtonAndMassage
-          ),))
+            textButton: 'Order Now',
+            onPressed: (){},
+            ),
         ],
       ),
     );

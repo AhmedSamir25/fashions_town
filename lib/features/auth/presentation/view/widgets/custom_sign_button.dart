@@ -16,7 +16,9 @@ final Function() onPressed;
       fixedSize: MaterialStatePropertyAll(Size(widthButton, heightButton),),
       backgroundColor: const MaterialStatePropertyAll(appColor)
     ),
-     child: Text(textButton,style: TextStyles.textStyle20,)
+     child: Text(textButton,style: TextStyles.textStyle20.copyWith(
+      color: textButtonAndMassage,
+     ),)
      );
   }
 }

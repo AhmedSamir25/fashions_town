@@ -1,6 +1,7 @@
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/list_all_setting.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/profile_info.dart';
+import 'package:fashionstown/features/settings/presentation/view/widgets/sign_out_bottun.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/switch_dark_or_light.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +18,7 @@ class SettingsViewBody extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: Text('Settings',style: TextStyles.textStyle20.copyWith(
-                color: Colors.black
-              ),)),
+              child: Text('Settings',style: TextStyles.textStyle20)),
             SizedBox(height:mediaHeight *0.025,),
             const ProfileInformation(),
             SizedBox(height: mediaHeight * 0.025),           
@@ -37,6 +36,10 @@ class SettingsViewBody extends StatelessWidget {
                 Spacer(flex: 1,),
               ],
             ),
+            SizedBox(
+              height: mediaHeight*0.025,
+            ),
+            const SignOutButton(),
           ],
         ),
       ),

@@ -24,5 +24,4 @@ class UserCubit extends Cubit<UserState> {
     }
     return userInfo;
   }
-
 }

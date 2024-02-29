@@ -45,6 +45,9 @@ class AuthRepository {
     userId: googleUser.id,
   );
   }
+  Future<void> signOut() async{
+    await FirebaseAuth.instance.signOut();
+  }
 
   Future<void> resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
