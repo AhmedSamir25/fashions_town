@@ -4,6 +4,7 @@ import 'package:fashionstown/features/auth/presentation/view/widgets/forgot_pass
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
 import 'package:fashionstown/core/utils/bottom_navigation_bar.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/show_category_items.dart';
+import 'package:fashionstown/features/home_details/presentation/view/home_details.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +14,7 @@ abstract class AppRouter {
   static const forgotPassword = '/ForgotPassword';
   static const homeView = '/';
   static const showCategoryItems = '/ShowCategoryItems';
+  static const homeDetailsView = '/homeDetailsView';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -40,6 +42,10 @@ abstract class AppRouter {
           child:  ShowCategoryItems(categoryName: value),
         );
         }
+      ),
+      GoRoute(
+        path: homeDetailsView,
+        builder: (context, state) => const HomeViewDetails(),
       )
     ],
   );

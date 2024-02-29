@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
 import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
+import 'package:go_router/go_router.dart';
 
 class LatesArrivalList extends StatefulWidget {
   const LatesArrivalList({Key? key}) : super(key: key);
@@ -29,110 +31,116 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
         if (state is GetProductDataSuccess) {
           return ListView.builder(
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: SaveThemeMode().getTheme()
-                        ? backgroundColorItemDark
-                        : backgroundColorItemLight,
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          const Spacer(
-                            flex: 1,
-                          ),
-                          Container(
-                            constraints:
-                                BoxConstraints(maxWidth: widthMedia * 0.23),
-                            // Name
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 4.0),
-                              child: Text(
-                                "${productCubit.products[index].productName}",
-                                style: TextStyles.textStyle14.copyWith(
-                                  fontWeight: FontWeight.w500,
+              return GestureDetector(
+                onTap: (){
+                  GoRouter.of(context).push(
+                  AppRouter.homeDetailsView,);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: SaveThemeMode().getTheme()
+                          ? backgroundColorItemDark
+                          : backgroundColorItemLight,
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            const Spacer(
+                              flex: 1,
+                            ),
+                            Container(
+                              constraints:
+                                  BoxConstraints(maxWidth: widthMedia * 0.23),
+                              // Name
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 4.0),
+                                child: Text(
+                                  "${productCubit.products[index].productName}",
+                                  style: TextStyles.textStyle14.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          ),
-                          const Spacer(
-                            flex: 4,
-                          ),
-                          Row(
-                            children: [
-                              CusttomIconButton(
-                                colorIcon: Colors.black,
-                                onPressed: () {},
-                                icon: const Icon(FontAwesomeIcons.heart),
+                            const Spacer(
+                              flex: 4,
+                            ),
+                            Row(
+                              children: [
+                                CusttomIconButton(
+                                  colorIcon: Colors.black,
+                                  onPressed: () {},
+                                  icon: const Icon(FontAwesomeIcons.heart),
+                                ),
+                                CusttomIconButton(
+                                  colorIcon: cartCubit.isProductsInCart(
+                                          productId: productCubit
+                                              .products[index].productId
+                                              .toString())
+                                      ? appColor
+                                      : highlightColor,
+                                  onPressed: () {
+                                    cartCubit.addCart(
+                                      productId:
+                                          "${productCubit.products[index].productId}",
+                                      productName:
+                                          "${productCubit.products[index].productName}",
+                                      productImage:
+                                          "${productCubit.products[index].productImage}",
+                                      productPrice:
+                                          "${productCubit.products[index].productPrice}",
+                                      productCategory:
+                                          "${productCubit.products[index].productCategory}",
+                                      productCount: 1,
+                                    );
+                                    BlocProvider.of<CartCubit>(context)
+                                        .getCartData();
+                                    setState(() {});
+                                  },
+                                  icon: cartCubit.isProductsInCart(
+                                          productId: productCubit
+                                              .products[index].productId
+                                              .toString())
+                                      ? const Icon(Icons.shopping_cart)
+                                      : const Icon(Icons.add_shopping_cart),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "${productCubit.products[index].productPrice}\$",
+                              style: TextStyles.textStyle18,
+                            ),
+                            const Spacer(
+                              flex: 1,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: widthMedia * 0.04,
+                        ),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            width: widthMedia * 0.25,
+                            height: heightMedia * 0.17,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "${productCubit.products[index].productImage}"),
+                                fit: BoxFit.fill,
                               ),
-                              CusttomIconButton(
-                                colorIcon: cartCubit.isProductsInCart(
-                                        productId: productCubit
-                                            .products[index].productId
-                                            .toString())
-                                    ? appColor
-                                    : highlightColor,
-                                onPressed: () {
-                                  cartCubit.addCart(
-                                    productId:
-                                        "${productCubit.products[index].productId}",
-                                    productName:
-                                        "${productCubit.products[index].productName}",
-                                    productImage:
-                                        "${productCubit.products[index].productImage}",
-                                    productPrice:
-                                        "${productCubit.products[index].productPrice}",
-                                    productCategory:
-                                        "${productCubit.products[index].productCategory}",
-                                    productCount: 1,
-                                  );
-                                  BlocProvider.of<CartCubit>(context)
-                                      .getCartData();
-                                  setState(() {});
-                                },
-                                icon: cartCubit.isProductsInCart(
-                                        productId: productCubit
-                                            .products[index].productId
-                                            .toString())
-                                    ? const Icon(Icons.shopping_cart)
-                                    : const Icon(Icons.add_shopping_cart),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "${productCubit.products[index].productPrice}\$",
-                            style: TextStyles.textStyle18,
-                          ),
-                          const Spacer(
-                            flex: 1,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: widthMedia * 0.04,
-                      ),
-                      Center(
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          width: widthMedia * 0.25,
-                          height: heightMedia * 0.17,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  "${productCubit.products[index].productImage}"),
-                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
