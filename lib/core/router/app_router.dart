@@ -8,6 +8,8 @@ import 'package:fashionstown/features/home_details/presentation/view/home_detail
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/home_details/presentation/manager/cubit/product_details_cubit.dart';
+
 abstract class AppRouter {
   static const signIn = '/signIn';
   static const signUp = '/signUp';
@@ -45,7 +47,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: homeDetailsView,
-        builder: (context, state) => const HomeViewDetails(),
+        builder: (context, state) {
+          final value = state.extra as String;
+          return BlocProvider(
+            create: (context) => ProductDetailsCubit()..getProductData(productId: value),
+            child: const HomeViewDetails());},
       )
     ],
   );

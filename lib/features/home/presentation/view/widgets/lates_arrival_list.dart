@@ -34,7 +34,9 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
               return GestureDetector(
                 onTap: (){
                   GoRouter.of(context).push(
-                  AppRouter.homeDetailsView,);
+                  AppRouter.homeDetailsView,
+                  extra: productCubit.products[index].productId,
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),

@@ -1,7 +1,7 @@
 import 'package:fashionstown/core/constant/assets_manager.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
-import 'package:fashionstown/features/settings/presentation/manager/cubit/user_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
