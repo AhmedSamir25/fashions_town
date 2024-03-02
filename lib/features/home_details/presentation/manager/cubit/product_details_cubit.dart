@@ -15,7 +15,6 @@ final productDB = FirebaseFirestore.instance.collection("products");
           await productDB.doc(productId).get().then((productSnapshot){
                 productInfo.clear();
          productInfo.insert(0,ProductModel.fromFirestore(productSnapshot));
-         print(productInfo);
          emit(GetProductDetailSuccess(productInfo: productInfo));
         });
         }on FirebaseFirestore catch (e) {

@@ -2,6 +2,7 @@ import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
@@ -127,19 +128,40 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                           width: widthMedia * 0.04,
                         ),
                         Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 8),
-                            width: widthMedia * 0.25,
-                            height: heightMedia * 0.17,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    "${productCubit.products[index].productImage}"),
-                                fit: BoxFit.fill,
+                          child: Stack(
+                            children:[ 
+                              Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              width: widthMedia * 0.25,
+                              height: heightMedia * 0.17,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      "${productCubit.products[index].productImage}"),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
+                            Positioned(
+                              top: heightMedia*0.136,
+                              left: widthMedia*0.081,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color:Colors.orange[700],
+                                  borderRadius: BorderRadius.circular(8)
+                                ),
+                                child: Row(
+                                    children: [
+                                     const Icon(Icons.star,size: 30,color: Colors.amber,),
+                                      Text('(${productCubit.products[index].productAverageRate})',
+                                      style: TextStyles.textStyle16,
+                                      ),
+                                    ],
+                                  ),
+                              ),
+                            ),
+                      ],),
                         ),
                       ],
                     ),

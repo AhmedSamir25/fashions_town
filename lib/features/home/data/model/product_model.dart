@@ -7,13 +7,18 @@ class ProductModel {
   String? productImage;
   String? productPrice;
   String? productCategory;
+  String? productAverageRate;
+  String? productRating;
   ProductModel(
       {required this.productId,
       required this.productDescription,
       required this.productName,
       required this.productImage,
       required this.productPrice,
-      required this.productCategory});
+      required this.productCategory,
+      required this.productAverageRate,
+      required this.productRating,
+      });
   factory ProductModel.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return ProductModel(
@@ -23,6 +28,8 @@ class ProductModel {
       productCategory: data['productCategory'],
       productDescription: data['description'],
       productImage: data['productImage'],
+      productAverageRate: data['productAverageRate'],
+      productRating: data['productRating'],
     );
   }
 }
