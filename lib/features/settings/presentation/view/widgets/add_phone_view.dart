@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class AddAdress extends StatelessWidget {
-  const AddAdress({super.key});
+class AddPhoneView extends StatelessWidget {
+  const AddPhoneView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class AddAdress extends StatelessWidget {
     double hightMedia = MediaQuery.of(context).size.height; 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter your adress'),
+        title: const Text('Enter your Phone'),
       ),
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state is UpdateUserAdressSuccess) {
                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: errorColor, content: Text('update your adress done',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
+              backgroundColor: errorColor, content: Text('update your phone done',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
             userCubit.getUserData();
             GoRouter.of(context).pop();
           }
@@ -36,19 +36,19 @@ class AddAdress extends StatelessWidget {
                 height: hightMedia * 0.2,
               ),
               AddAdressPhoneTextField(
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.number,
                  controller: controller,
                 onFieldSubmitted: (value) {
                   if (value.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor,
-               content: Text('Please Enter your adress',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
+               content: Text('Please Enter your phone',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
                   }else{
                   userCubit.updateUserAdress(adress: value);
                 }},
               ),
               SizedBox(height:hightMedia * 0.05 ,),
-              CustomElevatedButton(textButton: 'Update adress',
+              CustomElevatedButton(textButton: 'Update phone',
                style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(appColor)
                ),
@@ -56,7 +56,7 @@ class AddAdress extends StatelessWidget {
                   if (controller.text.isEmpty) {
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor,
-               content: Text('Please Enter your adress',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
+               content: Text('Please Enter your phone',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
                                
                   }else{
                   userCubit.updateUserAdress(adress: controller.text);

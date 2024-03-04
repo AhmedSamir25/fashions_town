@@ -35,7 +35,11 @@ void updateUserAdress({required String adress}) {
     
 }
 void updateUserPhoneNumber({required int phoneNumber}) {
-    productDB.update({'phoneNumber': phoneNumber})
-    .catchError((error) => print("Failed to update user: $error"));
+  try {
+        productDB.update({'phoneNumber': phoneNumber});
+        emit(UpdateUserPhoneSuccess());
+  }on FirebaseFirestore catch (e) {
+    print(e);
+  }
 }
 }

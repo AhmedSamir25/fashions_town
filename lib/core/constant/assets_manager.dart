@@ -29,4 +29,5 @@ static String mobiles = "assets/image/iphone.png";
   static String order = "assets/image/shopping-bag.png";
   static String favorite = "assets/image/favourite.png";
   static String darkMode = "assets/image/dark-mode.png";
+  static String phone = "assets/image/phone-call.png";
 }

@@ -24,6 +24,7 @@ class SettingsViewBody extends StatelessWidget {
             SizedBox(height:mediaHeight *0.025,),
             const ProfileInformation(),
             SizedBox(height: mediaHeight * 0.025),           
+            // adress
             GestureDetector(
               onTap: (){
                 GoRouter.of(context).push(
@@ -31,19 +32,31 @@ class SettingsViewBody extends StatelessWidget {
                 );
               },
               child: const ListAllSetting(indexList: 0,)),
+           // phone
             GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  GoRouter.of(context).push(
+                    AppRouter.addPhone,
+                  );
+                },
                 child: const ListAllSetting(indexList: 1),),
+                // order
+                GestureDetector(
+                  onTap: () {
+                  },
+                  child: const ListAllSetting(indexList: 2),
+                ),
+                //Favorite
                 GestureDetector(
                 onTap: (){
                   GoRouter.of(context).push(
                     AppRouter.favoriteView,
                   );
                 },
-                child: const ListAllSetting(indexList: 2),),
+                child: const ListAllSetting(indexList: 3),),
             const Row(
               children: [
-                ListAllSetting(indexList: 3),
+                ListAllSetting(indexList: 4),
                 Spacer(flex: 3,),
                 SwitchDarkOrLight(),
                 Spacer(flex: 1,),

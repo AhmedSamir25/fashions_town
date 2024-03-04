@@ -1,13 +1,16 @@
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class AddAdressTextField extends StatelessWidget {
-  const AddAdressTextField({super.key, required this.onFieldSubmitted, required this.controller,  });
+class AddAdressPhoneTextField extends StatelessWidget {
+  const AddAdressPhoneTextField({super.key, required this.onFieldSubmitted,
+   required this.controller,required this.keyboardType,  });
   final TextEditingController controller;
   final Function(String) onFieldSubmitted;
+   final TextInputType keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType:keyboardType ,
       controller: controller,
       //onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
