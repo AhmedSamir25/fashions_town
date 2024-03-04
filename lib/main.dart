@@ -7,6 +7,7 @@ import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
 import 'package:fashionstown/features/search/presentation/manager/cubit/search_cubit.dart';
 import 'package:fashionstown/features/settings/presentation/manager/dark_cubit/theme_mode_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:fashionstown/features/settings/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,7 @@ class Fashionstown extends StatelessWidget {
         BlocProvider(create: (context) => CartCubit()..getCartData()),
         BlocProvider(create: (context) => UserCubit()..getUserData()),
         BlocProvider(create: (context) => ThemeModeCubit()..themeMode(value: SaveThemeMode().getTheme())),
+        BlocProvider(create: (context) => FavoriteCubit()..getFavoriteData(),)
       ],
       child: const CheckUserLogin(),
     );

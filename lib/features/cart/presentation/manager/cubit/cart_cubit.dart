@@ -86,6 +86,7 @@ class CartCubit extends Cubit<CartState> {
   
   bool isProductsInCart({ String? productId}) {
     bool checkCartProduct = cartProduct.any((product) => product.productId == productId);
+    
       return checkCartProduct;
     }
   }

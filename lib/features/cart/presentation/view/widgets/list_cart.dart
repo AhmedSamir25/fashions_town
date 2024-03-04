@@ -2,14 +2,18 @@ import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
+import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomListCart extends StatelessWidget {
+class CustomListCart extends StatefulWidget {
   const CustomListCart(
       {super.key,  required this.networkImage,
        required this.productPrice, required this.productName,
          required this.productCount,
-          required this.onPressedIncrease, required this.onPressedDecrease,
+          required this.onPressedIncrease, required this.onPressedDecrease, required this.productCategory, required this.productId,
       });
   final String networkImage;
   final String productPrice;
@@ -17,10 +21,20 @@ class CustomListCart extends StatelessWidget {
   final int productCount ; 
   final Function() onPressedIncrease;
   final Function() onPressedDecrease;
+  final String productCategory;
+  final String productId;
+
+  @override
+  State<CustomListCart> createState() => _CustomListCartState();
+}
+
+class _CustomListCartState extends State<CustomListCart> {
   @override
   Widget build(BuildContext context) {
     double widthMedia = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
+    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
+    final addCartCubit = BlocProvider.of<CartCubit>(context);
         return Padding(
           padding: const EdgeInsets.only(top: 7.0,),
           child: Container(
@@ -41,7 +55,7 @@ class CustomListCart extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         image: DecorationImage(image: NetworkImage(
-                        networkImage,  
+                        widget.networkImage,  
                           ),
                           fit: BoxFit.fill,
                         ),
@@ -57,10 +71,15 @@ class CustomListCart extends StatelessWidget {
                       constraints: BoxConstraints(
                         maxWidth: widthMedia*0.59
                       ),
-                      child: Text(productName,
-                        style: TextStyles.textStyle16,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: widthMedia* 0.6
+                        ),
+                        child: Text(widget.productName,
+                          style: TextStyles.textStyle16,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                     const Spacer(flex: 4,),
@@ -69,28 +88,53 @@ class CustomListCart extends StatelessWidget {
                       children: [
                         
                         CusttomIconButton(
-                          colorIcon: Colors.black,
-                            icon:  Icon(Icons.add_shopping_cart,size: widthMedia*0.075),
-                            onPressed: () {}),
+                          colorIcon: favoriteCubit.isProductsInFavorite(productId: widget.productId)? addFavoriteColor :textButtonAndMassage ,
+                            icon:  Icon(favoriteCubit.isProductsInFavorite(productId: widget.productId)? FontAwesomeIcons.solidHeart :FontAwesomeIcons.heart ,size: widthMedia*0.07,),
+                            onPressed: ()  {
+                            favoriteCubit.addFavorite(productId: widget.productId,
+                             productName: widget.productName,
+                              productImage: widget.networkImage,
+                               productPrice: widget.productPrice,
+                                productCategory: widget.productCategory);
+                            
+                            favoriteCubit.isProductsInFavorite(productId: widget.productId);
+                            favoriteCubit.getFavoriteData();
+                            addCartCubit.getCartData();
+                            
+                            
+                          },),
                         SizedBox(width: widthMedia*0.07,),
                         CusttomIconButton(
-                          colorIcon: Colors.black,
-                          icon:  Icon(Icons.add_shopping_cart,size: widthMedia*0.075,),
-                          onPressed: () {},
+                          colorIcon: addCartCubit.isProductsInCart(productId: widget.productId)? appColor : textButtonAndMassage,
+                          icon:  Icon(Icons.remove_shopping_cart,size: widthMedia*0.075,),
+                          onPressed: () {
+                            setState(() {
+                                
+                              });
+                              addCartCubit.isProductsInCart(productId: widget.productId);
+                              addCartCubit.getCartData();
+                              addCartCubit.addCart(
+                                productId: widget.productId,
+                               productName: widget.productName,
+                                productImage: widget.networkImage,
+                                 productPrice: widget.productPrice,
+                                  productCategory: widget.productCategory,
+                                   productCount: 1);
+                          },
                         ),
                       ],
                     ),
                     const Spacer(flex: 1,),
                      Row(
                        children: [
-                         Text(productPrice,style: TextStyles.textStyle16,),
-                          SizedBox(width: widthMedia*0.13),
-                          TextButton(onPressed: onPressedDecrease, child: Text('-',
+                         Text(widget.productPrice,style: TextStyles.textStyle16,),
+                          SizedBox(width: widthMedia*0.01),
+                          TextButton(onPressed: widget.onPressedDecrease, child: Text('-',
                           style: TextStyles.textStyle24.copyWith(
                             color: SaveThemeMode().getTheme() ? textButtonAndMassage: textColor
                           )),),
-                         Text(productCount.toString(),style: TextStyles.textStyle16),
-                         TextButton(onPressed: onPressedIncrease, child: Text('+',
+                         Text(widget.productCount.toString(),style: TextStyles.textStyle16),
+                         TextButton(onPressed: widget.onPressedIncrease, child: Text('+',
                          style: TextStyles.textStyle18.copyWith(
                           color: SaveThemeMode().getTheme() ? textButtonAndMassage: textColor  ,
                          ),),),
@@ -104,4 +148,4 @@ class CustomListCart extends StatelessWidget {
           ),
         );
       }
-  }
+}

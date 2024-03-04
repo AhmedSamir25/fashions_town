@@ -15,12 +15,14 @@ class ListProductSearch extends StatelessWidget {
           itemCount: searchCubit.streamSearchProducts.length,
           itemBuilder: (context, index) {
             return CustomListProducts(
+              productCategory:"${ searchCubit.streamSearchProducts[index].productCategory}" ,
+              productId:"${ searchCubit.streamSearchProducts[index].productId}" ,
                 networkImage:
                 //searchedproducts
                     "${ searchCubit.streamSearchProducts[index].productImage}",
                 productName: "${searchCubit.streamSearchProducts[index].productName}",
                 productPrice:
-                    "${searchCubit.streamSearchProducts[index].productPrice}\$");
+                    "${searchCubit.streamSearchProducts[index].productPrice}");
           }),
     );
   }

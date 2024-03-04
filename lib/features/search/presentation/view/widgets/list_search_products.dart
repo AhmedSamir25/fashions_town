@@ -41,6 +41,8 @@ class ListSearchedProducts extends StatelessWidget {
               );
             } else {
               return CustomListProducts(
+                productCategory: "${ searchCubit.streamSearchProducts[index].productCategory}",
+                productId:"${searchCubit.searchProducts[index].productId}" ,
                   networkImage:
                       "${searchCubit.searchProducts[index].productImage}",
                   productName:

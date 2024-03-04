@@ -2,20 +2,34 @@ import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
+import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomListProducts extends StatelessWidget {
+class CustomListProducts extends StatefulWidget {
   const CustomListProducts(
       {super.key,  required this.networkImage,
-       required this.productPrice, required this.productName,
+       required this.productPrice, required this.productName, required this.productId, required this.productCategory,
       });
   final String networkImage;
   final String productPrice;
   final String productName;
+  final String productId;
+  final String productCategory;
+
+  @override
+  State<CustomListProducts> createState() => _CustomListProductsState();
+}
+
+class _CustomListProductsState extends State<CustomListProducts> {
   @override
   Widget build(BuildContext context) {
     double widthMedia = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
+    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
+    final addCartCubit = BlocProvider.of<CartCubit>(context);
         return Padding(
           padding: const EdgeInsets.only(top: 7.0,),
           child: Container(
@@ -36,7 +50,7 @@ class CustomListProducts extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           image: DecorationImage(image: NetworkImage(
-                          networkImage,  
+                          widget.networkImage,  
                             ),
                             fit: BoxFit.fill,
                           ),
@@ -52,7 +66,7 @@ class CustomListProducts extends StatelessWidget {
                       constraints: BoxConstraints(
                         maxWidth: widthMedia*0.59
                       ),
-                      child: Text(productName,
+                      child: Text(widget.productName,
                         style: TextStyles.textStyle16,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -63,18 +77,39 @@ class CustomListProducts extends StatelessWidget {
                       children: [
                         
                         CusttomIconButton(
-                          colorIcon: Colors.black,
-                            icon:  Icon(Icons.add_shopping_cart,size: widthMedia*0.07),
-                            onPressed: () {}),
+                          colorIcon: addCartCubit.isProductsInCart(productId: widget.productId)? appColor : textButtonAndMassage,
+                            icon:  Icon(Icons.shopping_cart,size: widthMedia*0.07),
+                            onPressed: () {
+                              setState(() {
+                                
+                              });
+                              addCartCubit.isProductsInCart(productId: widget.productId);
+                              addCartCubit.getCartData();
+                              addCartCubit.addCart(
+                                productId: widget.productId,
+                               productName: widget.productName,
+                                productImage: widget.networkImage,
+                                 productPrice: widget.productPrice,
+                                  productCategory: widget.productCategory,
+                                   productCount: 1);
+                            }),
                         SizedBox(width: widthMedia*0.07,),
                         CusttomIconButton(
-                          colorIcon: Colors.black,
-                          icon:  Icon(Icons.add_shopping_cart,size: widthMedia*0.07,),
-                          onPressed: () {},
+                          colorIcon: favoriteCubit.isProductsInFavorite(productId: widget.productId)? addFavoriteColor :textButtonAndMassage ,
+                          icon:  Icon(favoriteCubit.isProductsInFavorite(productId: widget.productId)? FontAwesomeIcons.solidHeart :FontAwesomeIcons.heart ,size: widthMedia*0.07,),
+                          onPressed: () {
+                            favoriteCubit.addFavorite(productId: widget.productId,
+                             productName: widget.productName,
+                              productImage: widget.networkImage,
+                               productPrice: widget.productPrice,
+                                productCategory: widget.productCategory);
+                            favoriteCubit.getFavoriteData();
+                            favoriteCubit.isProductsInFavorite(productId: widget.productId);
+                          },
                         ),
                       ],
                     ),
-                     Text(productPrice,style: TextStyles.textStyle16,),
+                     Text(widget.productPrice,style: TextStyles.textStyle16,),
                   ],
                 )
               ],
@@ -82,4 +117,4 @@ class CustomListProducts extends StatelessWidget {
           ),
         );
       }
-  }
+}

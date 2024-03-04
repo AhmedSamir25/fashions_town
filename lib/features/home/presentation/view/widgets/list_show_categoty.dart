@@ -32,6 +32,8 @@ class ListShowCategory extends StatelessWidget {
                         ));
                   } else {
                     return CustomListProducts(
+                      productCategory: "${productCubit.productsCategory[index].productCategory}",
+                      productId: "${productCubit.productsCategory[index].productId}",
                         networkImage:
                             "${productCubit.productsCategory[index].productImage}",
                         productName:

@@ -1,19 +1,61 @@
+import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
+import 'package:fashionstown/features/home_details/presentation/manager/cubit/product_details_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/theme/colors.dart';
 import '../../../../../core/theme/text_style.dart';
 
-class CustomMaterialButton extends StatelessWidget {
-  const CustomMaterialButton({super.key});
+class CustomMaterialButton extends StatefulWidget {
+  const CustomMaterialButton(
+      {super.key,
+      required this.productCount,
+      required this.productCategory,
+      required this.productPrice,
+      required this.productImage,
+      required this.productName,
+      required this.productId});
+  final int productCount;
+  final String productCategory;
+  final String productPrice;
+  final String productImage;
+  final String productName;
+  final String productId;
 
   @override
+  State<CustomMaterialButton> createState() => _CustomMaterialButtonState();
+}
+
+class _CustomMaterialButtonState extends State<CustomMaterialButton> {
+  @override
   Widget build(BuildContext context) {
-    return  MaterialButton(
-      color: appColor,
-      minWidth: MediaQuery.of(context).size.width*0.9,
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      onPressed: (){},
-      child: Text('add cart',style: TextStyles.textStyle18,),
-    );
+    final cartCubit = BlocProvider.of<CartCubit>(context);
+    final productCubit = BlocProvider.of<ProductDetailsCubit>(context);
+    return MaterialButton(
+     color: appColor,
+     minWidth: MediaQuery.of(context).size.width * 0.9,
+     padding: const EdgeInsets.symmetric(vertical: 12),
+     onPressed: () {
+       
+           
+           
+           setState(() {
+             cartCubit.addCart(
+           productId: widget.productId,
+           productName: widget.productName,
+           productImage: widget.productImage,
+           productPrice: widget.productPrice,
+           productCategory: widget.productCategory,
+           productCount: widget.productCount);
+           cartCubit.getCartData();
+             cartCubit.isProductsInCart(productId: widget.productId);
+             productCubit.getProductData(productId: widget.productId);
+           });
+     },
+     child: Text(
+       cartCubit.isProductsInCart(productId: widget.productId)?'product in cart' : 'add cart',
+       style: TextStyles.textStyle18,
+     ),
+          );
   }
 }

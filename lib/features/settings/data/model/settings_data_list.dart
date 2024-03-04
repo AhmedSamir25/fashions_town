@@ -12,8 +12,11 @@ class SettingsDataList {
   id: '2',
   name: 'order',
   image: AssetsManager.order),
-  SettingsModel(
-  id: '3',
+  SettingsModel(id: '3',
+   image: AssetsManager.favorite,
+    name: 'Favorite'),
+SettingsModel(
+  id: '4',
   name: 'darkMode',
   image: AssetsManager.darkMode),
  ];

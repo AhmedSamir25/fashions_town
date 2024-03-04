@@ -1,6 +1,7 @@
 import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
+import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,7 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
     double heightMedia = MediaQuery.of(context).size.height;
     final productCubit = BlocProvider.of<ProductCubit>(context);
     final cartCubit = BlocProvider.of<CartCubit>(context);
+    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
 
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
@@ -77,9 +79,29 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                             Row(
                               children: [
                                 CusttomIconButton(
-                                  colorIcon: Colors.black,
-                                  onPressed: () {},
-                                  icon: const Icon(FontAwesomeIcons.heart),
+                                  colorIcon: favoriteCubit.isProductsInFavorite(
+                                    productId: productCubit
+                                              .products[index].productId
+                                              .toString())? addFavoriteColor : textButtonAndMassage,
+                                  onPressed: () {
+                                    favoriteCubit.addFavorite(
+                                      productId:
+                                          "${productCubit.products[index].productId}",
+                                      productName:
+                                          "${productCubit.products[index].productName}",
+                                      productImage:
+                                          "${productCubit.products[index].productImage}",
+                                      productPrice:
+                                          "${productCubit.products[index].productPrice}",
+                                      productCategory:
+                                          "${productCubit.products[index].productCategory}",
+                                        );
+                                        productCubit.getProductData();
+                                  },
+                                  icon:  favoriteCubit.isProductsInFavorite(
+                                    productId: productCubit
+                                              .products[index].productId
+                                              .toString())? const Icon(FontAwesomeIcons.solidHeart): const Icon(FontAwesomeIcons.heart),
                                 ),
                                 CusttomIconButton(
                                   colorIcon: cartCubit.isProductsInCart(
@@ -87,7 +109,7 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                                               .products[index].productId
                                               .toString())
                                       ? appColor
-                                      : highlightColor,
+                                      : textButtonAndMassage,
                                   onPressed: () {
                                     cartCubit.addCart(
                                       productId:
@@ -104,14 +126,10 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                                     );
                                     BlocProvider.of<CartCubit>(context)
                                         .getCartData();
-                                    setState(() {});
+                                    productCubit.getProductData();
                                   },
-                                  icon: cartCubit.isProductsInCart(
-                                          productId: productCubit
-                                              .products[index].productId
-                                              .toString())
-                                      ? const Icon(Icons.shopping_cart)
-                                      : const Icon(Icons.add_shopping_cart),
+                                  icon: const Icon(Icons.shopping_cart),
+                                      
                                 ),
                               ],
                             ),

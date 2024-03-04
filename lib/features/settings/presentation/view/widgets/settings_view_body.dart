@@ -1,9 +1,11 @@
+import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/list_all_setting.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/profile_info.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/sign_out_bottun.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/switch_dark_or_light.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsViewBody extends StatelessWidget {
   const SettingsViewBody({super.key});
@@ -28,9 +30,16 @@ class SettingsViewBody extends StatelessWidget {
             GestureDetector(
                 onTap: (){},
                 child: const ListAllSetting(indexList: 1),),
+                GestureDetector(
+                onTap: (){
+                  GoRouter.of(context).push(
+                    AppRouter.favoriteView,
+                  );
+                },
+                child: const ListAllSetting(indexList: 2),),
             const Row(
               children: [
-                ListAllSetting(indexList: 2),
+                ListAllSetting(indexList: 3),
                 Spacer(flex: 3,),
                 SwitchDarkOrLight(),
                 Spacer(flex: 1,),

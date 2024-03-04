@@ -5,6 +5,8 @@ import 'package:fashionstown/features/home/presentation/manager/cubit/product_cu
 import 'package:fashionstown/core/utils/bottom_navigation_bar.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/show_category_items.dart';
 import 'package:fashionstown/features/home_details/presentation/view/home_details.dart';
+import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/view/widgets/favorite_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,6 +19,7 @@ abstract class AppRouter {
   static const homeView = '/';
   static const showCategoryItems = '/ShowCategoryItems';
   static const homeDetailsView = '/homeDetailsView';
+  static const favoriteView = '/favoriteView';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -52,7 +55,10 @@ abstract class AppRouter {
           return BlocProvider(
             create: (context) => ProductDetailsCubit()..getProductData(productId: value),
             child: const HomeViewDetails());},
-      )
+      ),
+      GoRoute(path: favoriteView,
+      builder:  (context, state) => const FavoriteView(),
+      ),
     ],
   );
 }

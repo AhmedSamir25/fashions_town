@@ -37,6 +37,8 @@ class _ListCartProductState extends State<ListCartProduct> {
                     itemBuilder: (context, index) {
                       // print(totalCart);
                       return CustomListCart(
+                        productCategory:"${state.cartProducts[index].productCategory}" ,
+                        productId: "${state.cartProducts[index].productId}",
                         networkImage:
                             //searchedproducts
                             "${state.cartProducts[index].productImage}",
