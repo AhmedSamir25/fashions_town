@@ -20,3 +20,5 @@ final class FieldGetUserData extends UserState {
 }
 
 final class LodaingGetUserData extends UserState {}
+
+final class UpdateUserAdressSuccess extends UserState{}

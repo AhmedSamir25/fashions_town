@@ -6,6 +6,7 @@ import 'package:fashionstown/core/utils/bottom_navigation_bar.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/show_category_items.dart';
 import 'package:fashionstown/features/home_details/presentation/view/home_details.dart';
 import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/view/widgets/add_adress.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/favorite_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,7 @@ abstract class AppRouter {
   static const showCategoryItems = '/ShowCategoryItems';
   static const homeDetailsView = '/homeDetailsView';
   static const favoriteView = '/favoriteView';
+  static const addAdress = '/addAdress';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -58,6 +60,9 @@ abstract class AppRouter {
       ),
       GoRoute(path: favoriteView,
       builder:  (context, state) => const FavoriteView(),
+      ),
+      GoRoute(path: addAdress,
+      builder: (context, state) => const AddAdress(),
       ),
     ],
   );

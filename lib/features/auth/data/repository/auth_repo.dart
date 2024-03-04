@@ -43,6 +43,8 @@ class AuthRepository {
     email: googleUser.email,
     name: googleUser.displayName ?? 'unknown',
     userId: googleUser.id,
+    adress: '',
+    phoneNumber: 1,
   );
   }
   Future<void> signOut() async{
@@ -57,7 +59,10 @@ class AuthRepository {
       {required String userId,
       required String name,
       required String email}) async {
-    UserModel userModel = UserModel(email: email, name: name, userId: userId);
+    UserModel userModel = UserModel(email: email, name: name, userId: userId,
+    adress: '',
+    phoneNumber: 1,
+    );
     await FirebaseFirestore.instance
         .collection('User')
         .doc(userId)

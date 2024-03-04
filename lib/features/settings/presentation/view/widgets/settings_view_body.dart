@@ -25,7 +25,11 @@ class SettingsViewBody extends StatelessWidget {
             const ProfileInformation(),
             SizedBox(height: mediaHeight * 0.025),           
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                GoRouter.of(context).push(
+                  AppRouter.addAdress
+                );
+              },
               child: const ListAllSetting(indexList: 0,)),
             GestureDetector(
                 onTap: (){},

@@ -24,4 +24,18 @@ class UserCubit extends Cubit<UserState> {
     }
     return userInfo;
   }
+  
+void updateUserAdress({required String adress}) {
+  try {
+    productDB.update({'adress': adress});
+    emit(UpdateUserAdressSuccess());
+  }on FirebaseFirestore catch (e) {
+    print(e);
+  }
+    
+}
+void updateUserPhoneNumber({required int phoneNumber}) {
+    productDB.update({'phoneNumber': phoneNumber})
+    .catchError((error) => print("Failed to update user: $error"));
+}
 }
