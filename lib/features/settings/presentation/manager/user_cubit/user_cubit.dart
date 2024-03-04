@@ -42,4 +42,13 @@ void updateUserPhoneNumber({required int phoneNumber}) {
     print(e);
   }
 }
+bool checkUserPhoneAdress(){
+  if (userInfo[0].adress!.isEmpty || userInfo[0].phoneNumber! == 0) {
+    return false;
+  }else if (userInfo[0].adress! == ""){
+    return false;
+  }else{
+    return true;
+  }
+}
 }

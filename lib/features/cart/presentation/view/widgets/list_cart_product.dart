@@ -1,8 +1,12 @@
+import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
 import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:fashionstown/features/cart/presentation/view/widgets/check_out_cart.dart';
 import 'package:fashionstown/features/cart/presentation/view/widgets/list_cart.dart';
+import 'package:fashionstown/features/cart/presentation/view/widgets/show_bottom_sheet_order.dart';
+import 'package:fashionstown/features/settings/presentation/manager/order_cubit/order_cubit.dart';
+import 'package:fashionstown/features/settings/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,9 +19,11 @@ class ListCartProduct extends StatefulWidget {
 
 class _ListCartProductState extends State<ListCartProduct> {
   double totalPrice = 0;
+  int listNumber = 0;
   @override
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context);
+    final userCubit = BlocProvider.of<UserCubit>(context);
 
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
@@ -35,9 +41,11 @@ class _ListCartProductState extends State<ListCartProduct> {
                     itemCount: state.cartProducts.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
+                      listNumber = index;
                       // print(totalCart);
                       return CustomListCart(
-                        productCategory:"${state.cartProducts[index].productCategory}" ,
+                        productCategory:
+                            "${state.cartProducts[index].productCategory}",
                         productId: "${state.cartProducts[index].productId}",
                         networkImage:
                             //searchedproducts
@@ -53,7 +61,9 @@ class _ListCartProductState extends State<ListCartProduct> {
                                 productId:
                                     "${state.cartProducts[index].productId}",
                                 valueButton:
-                                    (state.cartProducts[index].productCount ??1) -1);
+                                    (state.cartProducts[index].productCount ??
+                                            1) -
+                                        1);
                             cartCubit.getCartData();
                           });
                         },
@@ -63,14 +73,47 @@ class _ListCartProductState extends State<ListCartProduct> {
                                 productId:
                                     "${state.cartProducts[index].productId}",
                                 valueButton:
-                                    (state.cartProducts[index].productCount ??1) +1);
+                                    (state.cartProducts[index].productCount ??
+                                            1) +
+                                        1);
                             cartCubit.getCartData();
                           });
                         },
                       );
                     }),
               ),
-              OrderNow(totalCart: totalPrice),
+              OrderNow(
+                  onPressed: () {
+                    userCubit.checkUserPhoneAdress();
+
+                    if (userCubit.checkUserPhoneAdress() == false) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: errorColor,
+                          content: Text(
+                            'Please Enter your adress or Phone',
+                            style: TextStyles.textStyle14
+                                .copyWith(color: textButtonAndMassage),
+                          )));
+                    } else {
+                      ShowBottomSheetOrder().showBottomSheetOrder(context,totalPrice.toString(),
+                      onPressed: () {
+                     
+                     setState(() {
+                     for (var i = 0; i < state.cartProducts.length; i++) {
+                       print(state.cartProducts.length);
+                       BlocProvider.of<OrderCubit>(context).addOrder(
+                        productId: "${state.cartProducts[i].productId}", productName: "${state.cartProducts[i].productName}",
+                         productImage: "${state.cartProducts[i].productImage}", productPrice: "${state.cartProducts[i].productPrice}",
+                          productCategory: "${state.cartProducts[i].productCategory}", productCount: state.cartProducts[i].productCount ?? 1);
+                      }
+                     
+                      }
+                     );
+                      }
+                      );
+                    }
+                  },
+                  totalCart: totalPrice),
             ],
           );
         } else if (state is FieldGetCartProductData) {
