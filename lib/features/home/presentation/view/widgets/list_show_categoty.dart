@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/constant/assets_manager.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_list_products.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
@@ -24,12 +25,21 @@ class ListShowCategory extends StatelessWidget {
                     : productCubit.productsCategory.length,
                 itemBuilder: (context, index) {
                   if (productCubit.productsCategory.isEmpty) {
-                    return Align(
-                        alignment: AlignmentDirectional.center,
-                        child: Text(
-                          "There are no products in the Category",
-                          style: TextStyles.textStyle16,
-                        ));
+                    return SizedBox(
+                      height: MediaQuery.sizeOf(context).height *0.6,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(AssetsManager.noProducts,width: MediaQuery.sizeOf(context).width*0.4 ,),
+                          Align(
+                              alignment: AlignmentDirectional.center,
+                              child: Text(
+                                "There are no products in the Category",
+                                style: TextStyles.textStyle16,
+                              )),
+                        ],
+                      ),
+                    );
                   } else {
                     return CustomListProducts(
                       productCategory: "${productCubit.productsCategory[index].productCategory}",

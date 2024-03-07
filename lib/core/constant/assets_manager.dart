@@ -14,6 +14,7 @@ static String mobiles = "assets/image/iphone.png";
   static String perfumes = "assets/image/perfume.png";
   static String shoes = "assets/image/shoes.png";
   static String pc = "assets/image/computer.png";
+  static String noProducts = "assets/image/out-of-stock.png";
 
 
   //Products
