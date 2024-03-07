@@ -43,6 +43,9 @@ class SettingsViewBody extends StatelessWidget {
                 // order
                 GestureDetector(
                   onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.orderView,
+                    );
                   },
                   child: const ListAllSetting(indexList: 2),
                 ),

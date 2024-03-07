@@ -5,6 +5,7 @@ import 'package:fashionstown/features/home/presentation/manager/cubit/product_cu
 import 'package:fashionstown/core/utils/bottom_navigation_bar.dart';
 import 'package:fashionstown/features/home/presentation/view/widgets/show_category_items.dart';
 import 'package:fashionstown/features/home_details/presentation/view/home_details.dart';
+import 'package:fashionstown/features/settings/presentation/view/order_view.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/add_adress.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/add_phone_view.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/favorite_view.dart';
@@ -23,6 +24,7 @@ abstract class AppRouter {
   static const favoriteView = '/favoriteView';
   static const addAdress = '/addAdress';
   static const addPhone = '/addPhoneView';
+  static const orderView = '/orderView';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -67,6 +69,9 @@ abstract class AppRouter {
       ),
       GoRoute(path: addPhone,
       builder: (context, state) => const AddPhoneView(),
+      ),
+      GoRoute(path: orderView,
+      builder: (context, state) => const OrderView(),
       ),
     ],
   );

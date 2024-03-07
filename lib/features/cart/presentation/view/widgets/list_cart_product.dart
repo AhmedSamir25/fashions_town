@@ -100,11 +100,15 @@ class _ListCartProductState extends State<ListCartProduct> {
                      
                      setState(() {
                      for (var i = 0; i < state.cartProducts.length; i++) {
-                       print(state.cartProducts.length);
                        BlocProvider.of<OrderCubit>(context).addOrder(
+                        userId: "${userCubit.userInfo[0].userId}",
                         productId: "${state.cartProducts[i].productId}", productName: "${state.cartProducts[i].productName}",
                          productImage: "${state.cartProducts[i].productImage}", productPrice: "${state.cartProducts[i].productPrice}",
-                          productCategory: "${state.cartProducts[i].productCategory}", productCount: state.cartProducts[i].productCount ?? 1);
+                          productCategory: "${state.cartProducts[i].productCategory}", productCount: state.cartProducts[i].productCount ?? 1,
+                          adress: '${userCubit.userInfo[0].adress}',
+                           deliveryDuration:'2 : 5 days' ,
+                           historyOrder: DateTime.now(),
+                          );
                       }
                      
                       }
