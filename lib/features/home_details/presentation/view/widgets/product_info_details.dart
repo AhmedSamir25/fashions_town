@@ -45,7 +45,7 @@ class _ProductInfoDetailsState extends State<ProductInfoDetails> {
                  
               }, icon:  Icon(favoriteCubit.isProductsInFavorite(productId:widget.productId ) ? FontAwesomeIcons.solidHeart :FontAwesomeIcons.heart ,
                 
-              color: favoriteCubit.isProductsInFavorite(productId: widget.productId)?Colors.red :Colors.white,),
+              color: favoriteCubit.isProductsInFavorite(productId: widget.productId)?Colors.red :Colors.grey[700],),
               ),
               const Spacer(flex: 1,),
             ],

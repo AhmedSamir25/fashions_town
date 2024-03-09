@@ -1,4 +1,3 @@
-import 'package:fashionstown/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 abstract class TextStyles {
@@ -14,7 +13,7 @@ abstract class TextStyles {
      static TextStyle textStyle20 = const TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w600,
-    color: textButtonAndMassage,
+    // color: textButtonAndMassage,
   );
      static TextStyle textStyle18 = const TextStyle(
     fontSize: 18,
