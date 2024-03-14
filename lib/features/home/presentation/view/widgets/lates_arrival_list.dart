@@ -1,15 +1,12 @@
 import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
-import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:fashionstown/core/utils/widgets/add_cart_button.dart';
+import 'package:fashionstown/core/utils/widgets/add_favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
-import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
-import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:fashionstown/features/home/presentation/manager/cubit/product_cubit.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,8 +23,6 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
     double widthMedia = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
     final productCubit = BlocProvider.of<ProductCubit>(context);
-    final cartCubit = BlocProvider.of<CartCubit>(context);
-    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
 
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
@@ -35,10 +30,10 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
           return ListView.builder(
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: (){
+                onTap: () {
                   GoRouter.of(context).push(
-                  AppRouter.homeDetailsView,
-                  extra: productCubit.products[index].productId,
+                    AppRouter.homeDetailsView,
+                    extra: productCubit.products[index].productId,
                   );
                 },
                 child: Padding(
@@ -78,59 +73,19 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                             ),
                             Row(
                               children: [
-                                CusttomIconButton(
-                                  colorIcon: favoriteCubit.isProductsInFavorite(
-                                    productId: productCubit
-                                              .products[index].productId
-                                              .toString())? addFavoriteColor : textButtonAndMassage,
-                                  onPressed: () {
-                                    favoriteCubit.addFavorite(
-                                      productId:
-                                          "${productCubit.products[index].productId}",
-                                      productName:
-                                          "${productCubit.products[index].productName}",
-                                      productImage:
-                                          "${productCubit.products[index].productImage}",
-                                      productPrice:
-                                          "${productCubit.products[index].productPrice}",
-                                      productCategory:
-                                          "${productCubit.products[index].productCategory}",
-                                        );
-                                        productCubit.getProductData();
-                                  },
-                                  icon:  favoriteCubit.isProductsInFavorite(
-                                    productId: productCubit
-                                              .products[index].productId
-                                              .toString())? const Icon(FontAwesomeIcons.solidHeart): const Icon(FontAwesomeIcons.heart),
+                                AddFavoriteButton(
+                                  productCategory: "${productCubit.products[index].productCategory}",
+                                  productId: "${productCubit.products[index].productId}",
+                                  productImage: "${productCubit.products[index].productImage}",
+                                  productName: "${productCubit.products[index].productName}",
+                                  productPrice: "${productCubit.products[index].productPrice}",
                                 ),
-                                CusttomIconButton(
-                                  colorIcon: cartCubit.isProductsInCart(
-                                          productId: productCubit
-                                              .products[index].productId
-                                              .toString())
-                                      ? appColor
-                                      : textButtonAndMassage,
-                                  onPressed: () {
-                                    cartCubit.addCart(
-                                      productId:
-                                          "${productCubit.products[index].productId}",
-                                      productName:
-                                          "${productCubit.products[index].productName}",
-                                      productImage:
-                                          "${productCubit.products[index].productImage}",
-                                      productPrice:
-                                          "${productCubit.products[index].productPrice}",
-                                      productCategory:
-                                          "${productCubit.products[index].productCategory}",
-                                      productCount: 1,
-                                    );
-                                    BlocProvider.of<CartCubit>(context)
-                                        .getCartData();
-                                    productCubit.getProductData();
-                                  },
-                                  icon: const Icon(Icons.shopping_cart),
-                                      
-                                ),
+                                AddCartButton(
+                                  productId: "${productCubit.products[index].productId}",
+                                   productImage: "${productCubit.products[index].productImage}",
+                                    productName: "${productCubit.products[index].productName}",
+                                     productPrice: "${productCubit.products[index].productPrice}", 
+                                     productCategory: "${productCubit.products[index].productCategory}")
                               ],
                             ),
                             Text(
@@ -147,18 +102,18 @@ class _LatesArrivalListState extends State<LatesArrivalList> {
                         ),
                         Center(
                           child: Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          width: widthMedia * 0.25,
-                          height: heightMedia * 0.17,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  "${productCubit.products[index].productImage}"),
-                              fit: BoxFit.fill,
+                            margin: const EdgeInsets.only(right: 8),
+                            width: widthMedia * 0.25,
+                            height: heightMedia * 0.17,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "${productCubit.products[index].productImage}"),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                                                      ),
                         ),
                       ],
                     ),

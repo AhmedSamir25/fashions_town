@@ -36,8 +36,9 @@ class AddAdress extends StatelessWidget {
                 height: hightMedia * 0.2,
               ),
               AddAdressPhoneTextField(
+                controller: controller,
+                labelText: 'Enter your adress',
                 keyboardType: TextInputType.name,
-                 controller: controller,
                 onFieldSubmitted: (value) {
                   if (value.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

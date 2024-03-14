@@ -82,8 +82,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 //  }
   
   bool isProductsInFavorite({ String? productId}) {
-    bool checkFavoriteProduct = favoriteProduct.any((product) => product.productId == productId);
     
-      return checkFavoriteProduct;
+    bool checkFavoriteProduct = favoriteProduct.any((product) => product.productId == productId);
+    return checkFavoriteProduct; 
     }
 }

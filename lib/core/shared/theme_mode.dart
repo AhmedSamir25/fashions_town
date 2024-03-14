@@ -13,6 +13,11 @@ static late SharedPreferences prefs;
  }  
     bool getTheme(){
      var themevalue = prefs.getBool('themeDarkOrLight');
+     if (prefs.getBool('themeDarkOrLight') == null) {
+       themevalue = false;
+     }else{
+      themevalue = prefs.getBool('themeDarkOrLight');
+     }
      return themevalue!;
   } 
 }

@@ -16,20 +16,23 @@ class FavoriteView extends StatelessWidget {
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         builder: (context, state) {
           if (state is GetFavoriteProductSuccess) {
-            return ListView.builder(
-              itemCount: state.favoriteList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CustomListProducts(
-                    productCategory:"${state.favoriteList[index].productCategory}" ,
-                    productId: "${state.favoriteList[index].productId}",
-                    networkImage: "${state.favoriteList[index].productImage}",
-                    productName: "${state.favoriteList[index].productName}",
-                    productPrice: "${state.favoriteList[index].productPrice}",
-                  ),
-                );
-              },
+            return Expanded(
+              child: ListView.builder(
+                itemCount: state.favoriteList.length,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CustomListProducts(
+                      productCategory:"${state.favoriteList[index].productCategory}" ,
+                      productId: "${state.favoriteList[index].productId}",
+                      networkImage: "${state.favoriteList[index].productImage}",
+                      productName: "${state.favoriteList[index].productName}",
+                      productPrice: "${state.favoriteList[index].productPrice}",
+                    ),
+                  );
+                },
+              ),
             );
           } else if (state is FieldGetFavoriteProductData) {
             return Text(state.massage);

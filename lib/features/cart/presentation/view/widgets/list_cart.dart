@@ -1,14 +1,11 @@
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
-import 'package:fashionstown/core/utils/widgets/custom_button_icon.dart';
-import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
-import 'package:fashionstown/features/settings/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:fashionstown/core/utils/widgets/add_cart_button.dart';
+import 'package:fashionstown/core/utils/widgets/add_favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomListCart extends StatefulWidget {
+class CustomListCart extends StatelessWidget {
   const CustomListCart(
       {super.key,  required this.networkImage,
        required this.productPrice, required this.productName,
@@ -25,16 +22,9 @@ class CustomListCart extends StatefulWidget {
   final String productId;
 
   @override
-  State<CustomListCart> createState() => _CustomListCartState();
-}
-
-class _CustomListCartState extends State<CustomListCart> {
-  @override
   Widget build(BuildContext context) {
     double widthMedia = MediaQuery.of(context).size.width;
     double heightMedia = MediaQuery.of(context).size.height;
-    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
-    final addCartCubit = BlocProvider.of<CartCubit>(context);
         return Padding(
           padding: const EdgeInsets.only(top: 7.0,),
           child: Container(
@@ -55,7 +45,7 @@ class _CustomListCartState extends State<CustomListCart> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         image: DecorationImage(image: NetworkImage(
-                        widget.networkImage,  
+                        networkImage,  
                           ),
                           fit: BoxFit.fill,
                         ),
@@ -75,7 +65,7 @@ class _CustomListCartState extends State<CustomListCart> {
                         constraints: BoxConstraints(
                           maxWidth: widthMedia* 0.6
                         ),
-                        child: Text(widget.productName,
+                        child: Text(productName,
                           style: TextStyles.textStyle16,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -87,54 +77,30 @@ class _CustomListCartState extends State<CustomListCart> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         
-                        CusttomIconButton(
-                          colorIcon: favoriteCubit.isProductsInFavorite(productId: widget.productId)? addFavoriteColor :textButtonAndMassage ,
-                            icon:  Icon(favoriteCubit.isProductsInFavorite(productId: widget.productId)? FontAwesomeIcons.solidHeart :FontAwesomeIcons.heart ,size: widthMedia*0.07,),
-                            onPressed: ()  {
-                            favoriteCubit.addFavorite(productId: widget.productId,
-                             productName: widget.productName,
-                              productImage: widget.networkImage,
-                               productPrice: widget.productPrice,
-                                productCategory: widget.productCategory);
-                            
-                            favoriteCubit.isProductsInFavorite(productId: widget.productId);
-                            favoriteCubit.getFavoriteData();
-                            addCartCubit.getCartData();
-                            
-                            
-                          },),
+                       AddFavoriteButton(
+                        productId: productId, productName: productName,
+                         productImage: networkImage,
+                          productPrice: productPrice,
+                           productCategory: productCategory),
                         SizedBox(width: widthMedia*0.07,),
-                        CusttomIconButton(
-                          colorIcon: addCartCubit.isProductsInCart(productId: widget.productId)? appColor : textButtonAndMassage,
-                          icon:  Icon(Icons.remove_shopping_cart,size: widthMedia*0.075,),
-                          onPressed: () {
-                            setState(() {
-                                
-                              });
-                              addCartCubit.isProductsInCart(productId: widget.productId);
-                              addCartCubit.getCartData();
-                              addCartCubit.addCart(
-                                productId: widget.productId,
-                               productName: widget.productName,
-                                productImage: widget.networkImage,
-                                 productPrice: widget.productPrice,
-                                  productCategory: widget.productCategory,
-                                   productCount: 1);
-                          },
-                        ),
+                        AddCartButton(productId: productId,
+                         productImage: networkImage,
+                          productName: productName,
+                           productPrice: productPrice,
+                            productCategory: productCategory)
                       ],
                     ),
                     const Spacer(flex: 1,),
                      Row(
                        children: [
-                         Text(widget.productPrice,style: TextStyles.textStyle16,),
+                         Text(productPrice,style: TextStyles.textStyle16,),
                           SizedBox(width: widthMedia*0.01),
-                          TextButton(onPressed: widget.onPressedDecrease, child: Text('-',
+                          TextButton(onPressed: onPressedDecrease, child: Text('-',
                           style: TextStyles.textStyle24.copyWith(
                             color: SaveThemeMode().getTheme() ? textButtonAndMassage: textColor
                           )),),
-                         Text(widget.productCount.toString(),style: TextStyles.textStyle16),
-                         TextButton(onPressed: widget.onPressedIncrease, child: Text('+',
+                         Text(productCount.toString(),style: TextStyles.textStyle16),
+                         TextButton(onPressed: onPressedIncrease, child: Text('+',
                          style: TextStyles.textStyle18.copyWith(
                           color: SaveThemeMode().getTheme() ? textButtonAndMassage: textColor  ,
                          ),),),

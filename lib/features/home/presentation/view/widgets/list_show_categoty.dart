@@ -12,10 +12,7 @@ class ListShowCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productCubit = BlocProvider.of<ProductCubit>(context);
-    return BlocConsumer<ProductCubit, ProductState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is GetProductDataSuccess) {
           return Expanded(

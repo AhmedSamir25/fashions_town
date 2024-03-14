@@ -17,3 +17,8 @@ final class GetFavoriteProductSuccess extends FavoriteState {
   const GetFavoriteProductSuccess( {required this.favoriteList});
 }
 final class LoadingFavoriteProductData extends FavoriteState {}
+
+final class ProductInFavoriteData extends FavoriteState {}
+
+final class FalseProductInFavoriteData extends FavoriteState {}
+
