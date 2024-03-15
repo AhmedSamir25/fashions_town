@@ -1,3 +1,4 @@
+import 'package:fashionstown/core/function/cubit/check_internet_cubit.dart';
 import 'package:fashionstown/core/shared/set_user_id.dart';
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/utils/check_login_state.dart';
@@ -33,6 +34,9 @@ class Fashionstown extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit(authRepository),),
+         BlocProvider<InternetCubit>(
+      create: (context) => InternetCubit(),),
+        //BlocProvider(create: (context)=> CheckInternetCubit()..checkConnectivity()),
         BlocProvider(create: (context)=> ProductCubit()..getProductData()),
         BlocProvider(create: (context) => SearchCubit()..fetchProductsStream()),
         BlocProvider(create: (context) => CartCubit()..getCartData()),
