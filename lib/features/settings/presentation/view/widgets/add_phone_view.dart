@@ -12,18 +12,18 @@ class AddPhoneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller =  TextEditingController() ;
     final userCubit = BlocProvider.of<UserCubit>(context);
     double hightMedia = MediaQuery.of(context).size.height; 
+    String phoneNumber = '';
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter your adress'),
+        title: const Text('Enter your Phone'),
       ),
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-          if (state is UpdateUserAdressSuccess) {
+          if (state is UpdateUserPhoneSuccess) {
                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: errorColor, content: Text('update your adress done',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
+              backgroundColor: errorColor, content: Text('update your phone done',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
             userCubit.getUserData();
             GoRouter.of(context).pop();
           }
@@ -36,9 +36,6 @@ class AddPhoneView extends StatelessWidget {
                 height: hightMedia * 0.2,
               ),
               AddAdressPhoneTextField(
-                labelText: 'Enter your phone',
-                keyboardType: TextInputType.number,
-                 controller: controller,
                 onFieldSubmitted: (value) {
                   if (value.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -47,20 +44,26 @@ class AddPhoneView extends StatelessWidget {
                   }else{
                   userCubit.updateUserPhoneNumber(phoneNumber: int.parse(value));
                 }},
+                labelText: 'Enter your phone',
+                keyboardType: TextInputType.number,
+              
+                onChanged: (value) {
+                    phoneNumber = value;},
               ),
               SizedBox(height:hightMedia * 0.05 ,),
-              CustomElevatedButton(textButton: 'Update adress',
+              CustomElevatedButton(textButton: 'Update Phone',
                style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(appColor)
                ),
                onPressed: (){
-                  if (controller.text.isEmpty) {
+                  if (phoneNumber.isEmpty) {
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor,
-               content: Text('Please Enter your adress',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
+               content: Text('Please Enter your Phone',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
                                
                   }else{
-                  userCubit.updateUserAdress(adress: controller.text);
+                  userCubit.updateUserPhoneNumber(phoneNumber: int.parse(phoneNumber));
+                  userCubit.getUserData();
                   }
                })
             ],

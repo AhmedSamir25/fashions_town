@@ -12,9 +12,9 @@ class AddAdress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller =  TextEditingController() ;
     final userCubit = BlocProvider.of<UserCubit>(context);
     double hightMedia = MediaQuery.of(context).size.height; 
+    String userAdress = '';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Enter your adress'),
@@ -36,9 +36,6 @@ class AddAdress extends StatelessWidget {
                 height: hightMedia * 0.2,
               ),
               AddAdressPhoneTextField(
-                controller: controller,
-                labelText: 'Enter your adress',
-                keyboardType: TextInputType.name,
                 onFieldSubmitted: (value) {
                   if (value.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -47,6 +44,11 @@ class AddAdress extends StatelessWidget {
                   }else{
                   userCubit.updateUserAdress(adress: value);
                 }},
+                labelText: 'Enter your adress',
+                keyboardType: TextInputType.name,
+                onChanged: (value) {
+                  userAdress = value;
+                },
               ),
               SizedBox(height:hightMedia * 0.05 ,),
               CustomElevatedButton(textButton: 'Update adress',
@@ -54,13 +56,13 @@ class AddAdress extends StatelessWidget {
                 backgroundColor: MaterialStatePropertyAll(appColor)
                ),
                onPressed: (){
-                  if (controller.text.isEmpty) {
+                  if (userAdress.isEmpty) {
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: errorColor,
                content: Text('Please Enter your adress',style: TextStyles.textStyle14.copyWith(color: textButtonAndMassage),)));
                                
                   }else{
-                  userCubit.updateUserAdress(adress: controller.text);
+                  userCubit.updateUserAdress(adress: userAdress);
                   }
                })
             ],
