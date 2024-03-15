@@ -13,7 +13,7 @@ class CartViewBody extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBar(appBarText: 'My Cart'),
-            Expanded(child: ListCartProduct()),
+             ListCartProduct()
           ],
         ),
       ),

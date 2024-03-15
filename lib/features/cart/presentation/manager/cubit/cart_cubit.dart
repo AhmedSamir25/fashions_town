@@ -83,6 +83,10 @@ class CartCubit extends Cubit<CartState> {
           .doc(productId)
     .update({'productCount': valueButton});
  }
+
+ void remvoeCart({required String productId}) async{
+  await productDB.doc(productId).delete();
+}
   
   bool isProductsInCart({ String? productId}) {
     bool checkCartProduct = cartProduct.any((product) => product.productId == productId);

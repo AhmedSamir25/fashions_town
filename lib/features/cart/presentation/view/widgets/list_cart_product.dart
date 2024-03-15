@@ -1,7 +1,9 @@
+import 'package:fashionstown/core/router/app_router.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/core/theme/text_style.dart';
 import 'package:fashionstown/core/utils/widgets/custom_loading.dart';
 import 'package:fashionstown/features/cart/presentation/manager/cubit/cart_cubit.dart';
+import 'package:fashionstown/features/cart/presentation/view/widgets/cart_empty_view.dart';
 import 'package:fashionstown/features/cart/presentation/view/widgets/check_out_cart.dart';
 import 'package:fashionstown/features/cart/presentation/view/widgets/list_cart.dart';
 import 'package:fashionstown/features/cart/presentation/view/widgets/show_bottom_sheet_order.dart';
@@ -9,6 +11,7 @@ import 'package:fashionstown/features/settings/presentation/manager/order_cubit/
 import 'package:fashionstown/features/settings/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ListCartProduct extends StatefulWidget {
   const ListCartProduct({super.key});
@@ -34,91 +37,98 @@ class _ListCartProductState extends State<ListCartProduct> {
                   previous +
                   (current.productCount ?? 1) *
                       double.parse('${current.productPrice}'));
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    itemCount: state.cartProducts.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      listNumber = index;
-                      // print(totalCart);
-                      return CustomListCart(
-                        productCategory:
-                            "${state.cartProducts[index].productCategory}",
-                        productId: "${state.cartProducts[index].productId}",
-                        networkImage:
-                            //searchedproducts
-                            "${state.cartProducts[index].productImage}",
-                        productName: "${state.cartProducts[index].productName}",
-                        productPrice:
-                            "${state.cartProducts[index].productPrice}\$",
-                        productCount:
-                            state.cartProducts[index].productCount ?? 1,
-                        onPressedDecrease: () {
-                          setState(() {
-                            cartCubit.controlTheNumberOfItem(
-                                productId:
-                                    "${state.cartProducts[index].productId}",
-                                valueButton:
-                                    (state.cartProducts[index].productCount ??
-                                            1) -
-                                        1);
-                            cartCubit.getCartData();
-                          });
-                        },
-                        onPressedIncrease: () {
-                          setState(() {
-                            cartCubit.controlTheNumberOfItem(
-                                productId:
-                                    "${state.cartProducts[index].productId}",
-                                valueButton:
-                                    (state.cartProducts[index].productCount ??
-                                            1) +
-                                        1);
-                            cartCubit.getCartData();
-                          });
-                        },
-                      );
-                    }),
-              ),
-              OrderNow(
-                  onPressed: () {
-                    userCubit.checkUserPhoneAdress();
-
-                    if (userCubit.checkUserPhoneAdress() == false) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: errorColor,
-                          content: Text(
-                            'Please Enter your adress or Phone',
-                            style: TextStyles.textStyle14
-                                .copyWith(color: textButtonAndMassage),
-                          )));
-                    } else {
-                      ShowBottomSheetOrder().showBottomSheetOrder(context,totalPrice.toString(),
-                      onPressed: () {
-                     
-                     setState(() {
-                     for (var i = 0; i < state.cartProducts.length; i++) {
-                       BlocProvider.of<OrderCubit>(context).addOrder(
-                        userId: "${userCubit.userInfo[0].userId}",
-                        productId: "${state.cartProducts[i].productId}", productName: "${state.cartProducts[i].productName}",
-                         productImage: "${state.cartProducts[i].productImage}", productPrice: "${state.cartProducts[i].productPrice}",
-                          productCategory: "${state.cartProducts[i].productCategory}", productCount: state.cartProducts[i].productCount ?? 1,
-                          adress: '${userCubit.userInfo[0].adress}',
-                           deliveryDuration:'2 : 5 days' ,
-                           historyOrder: DateTime.now(),
-                          );
+                      if (state.cartProducts.isEmpty) {
+                        return const CartEmptyView();
                       }
-                     
+          return Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: state.cartProducts.length,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        listNumber = index;
+                        // print(totalCart);
+                        return CustomListCart(
+                          productCategory:
+                              "${state.cartProducts[index].productCategory}",
+                          productId: "${state.cartProducts[index].productId}",
+                          networkImage:
+                              //searchedproducts
+                              "${state.cartProducts[index].productImage}",
+                          productName: "${state.cartProducts[index].productName}",
+                          productPrice:
+                              "${state.cartProducts[index].productPrice}\$",
+                          productCount:
+                              state.cartProducts[index].productCount ?? 1,
+                          onPressedDecrease: () {
+                            setState(() {
+                              cartCubit.controlTheNumberOfItem(
+                                  productId:
+                                      "${state.cartProducts[index].productId}",
+                                  valueButton:
+                                      (state.cartProducts[index].productCount ??
+                                              1) -
+                                          1);
+                              cartCubit.getCartData();
+                            });
+                          },
+                          onPressedIncrease: () {
+                            setState(() {
+                              cartCubit.controlTheNumberOfItem(
+                                  productId:
+                                      "${state.cartProducts[index].productId}",
+                                  valueButton:
+                                      (state.cartProducts[index].productCount ??
+                                              1) +
+                                          1);
+                              cartCubit.getCartData();
+                            });
+                          },
+                        );
+                      }),
+                ),
+                OrderNow(
+                    onPressed: () {
+                      userCubit.checkUserPhoneAdress();
+            
+                      if (userCubit.checkUserPhoneAdress() == false) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: errorColor,
+                            content: Text(
+                              'Please Enter your adress or Phone',
+                              style: TextStyles.textStyle14
+                                  .copyWith(color: textButtonAndMassage),
+                            )));
+                      } else {
+                        ShowBottomSheetOrder().showBottomSheetOrder(context,totalPrice.toString(),
+                        onPressed: () {
+                       
+                       setState(() {
+                       for (var i = 0; i < state.cartProducts.length; i++) {
+                         BlocProvider.of<OrderCubit>(context).addOrder(
+                          userId: "${userCubit.userInfo[0].userId}",
+                          productId: "${state.cartProducts[i].productId}", productName: "${state.cartProducts[i].productName}",
+                           productImage: "${state.cartProducts[i].productImage}", productPrice: "${state.cartProducts[i].productPrice}",
+                            productCategory: "${state.cartProducts[i].productCategory}", productCount: state.cartProducts[i].productCount ?? 1,
+                            adress: '${userCubit.userInfo[0].adress}',
+                             deliveryDuration:'2 : 5 days' ,
+                             historyOrder: DateTime.now(),
+                            );
+                            cartCubit.remvoeCart(productId: "${state.cartProducts[i].productId}");
+                        }
+                        GoRouter.of(context).push(AppRouter.orderView);
+                        cartCubit.getCartData();
+                        }
+                       );
+                        }
+                        );
                       }
-                     );
-                      }
-                      );
-                    }
-                  },
-                  totalCart: totalPrice),
-            ],
+                    },
+                    totalCart: totalPrice),
+              ],
+            ),
           );
         } else if (state is FieldGetCartProductData) {
           return Text(

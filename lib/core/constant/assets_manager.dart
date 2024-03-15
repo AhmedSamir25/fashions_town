@@ -34,4 +34,6 @@ static String mobiles = "assets/image/iphone.png";
 
   //No internet connection
   static String noInternetConnection = "assets/image/disconnected.png";
+  // cart empty
+  static String cartEmpty = "assets/image/empty.png";
 }

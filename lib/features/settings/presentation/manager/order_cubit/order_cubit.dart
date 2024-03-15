@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fashionstown/core/shared/set_user_id.dart';
 import 'package:fashionstown/features/settings/data/model/order_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,7 @@ class OrderCubit extends Cubit<OrderState> {
   Future<List<OrderModel>> getOrderData() async {
     try {
       emit(LoadingOrderProductData());
-      await productDB.get().then((productsSnapshot) {
+      await productDB.where('userId' , isEqualTo:SetUserId().getId()).get().then((productsSnapshot) {
         orderProducts.clear();
         for (var element in productsSnapshot.docs) {
           orderProducts.insert(0, OrderModel.fromFirestore(element));
@@ -62,20 +63,4 @@ class OrderCubit extends Cubit<OrderState> {
     emit(FieldGetOrderProductData(  massage: e.toString(),));
   }
 }
-
-//  void controlTheNumberOfItem({required String productId, required int valueButton}) async{
-//   await FirebaseFirestore.instance
-//           .collection('User')
-//           .doc(SetUserId().getId())
-//           .collection('Cart')
-//           .doc(productId)
-//     .update({'productCount': valueButton});
-//  }
-  
-  // bool isProductsInFavorite({ String? productId}) {
-  //   bool checkFavoriteProduct = favoriteProduct.any((product) => product.productId == productId);
-    
-  //     return checkFavoriteProduct;
-  //   }
 }
-
