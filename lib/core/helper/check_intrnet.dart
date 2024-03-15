@@ -1,5 +1,5 @@
-import 'package:fashionstown/core/function/cubit/check_internet_cubit.dart';
-import 'package:fashionstown/core/theme/colors.dart';
+import 'package:fashionstown/core/helper/cubit/check_internet_cubit.dart';
+import 'package:fashionstown/core/utils/no_internet_connection.dart';
 import 'package:fashionstown/core/utils/switch_theme_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,15 +19,7 @@ class _CheckIntrentState extends State<CheckIntrnet> {
         if (state == InternetConnectionStatus.connected) {
           return const SwitchThemeMode();
         } else {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Fashions Town',
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: appColor),
-                useMaterial3: true,
-              ),
-              home: const Text('data'),
-            );
+          return const NoInternetConnectionView();
         }
       },
     );

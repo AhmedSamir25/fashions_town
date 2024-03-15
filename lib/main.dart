@@ -1,4 +1,4 @@
-import 'package:fashionstown/core/function/cubit/check_internet_cubit.dart';
+import 'package:fashionstown/core/helper/cubit/check_internet_cubit.dart';
 import 'package:fashionstown/core/shared/set_user_id.dart';
 import 'package:fashionstown/core/shared/theme_mode.dart';
 import 'package:fashionstown/core/utils/check_login_state.dart';

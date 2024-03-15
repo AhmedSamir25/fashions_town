@@ -1,4 +1,4 @@
-import 'package:fashionstown/core/function/check_intrnet.dart';
+import 'package:fashionstown/core/helper/check_intrnet.dart';
 import 'package:fashionstown/core/theme/colors.dart';
 import 'package:fashionstown/features/auth/presentation/view/sign_in_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
