@@ -16,7 +16,8 @@ class OrderCubit extends Cubit<OrderState> {
   Future<List<OrderModel>> getOrderData() async {
     try {
       emit(LoadingOrderProductData());
-      await productDB.where('userId' , isEqualTo:SetUserId().getId()).get().then((productsSnapshot) {
+      await productDB.orderBy('time',
+      descending: false).where('userId' , isEqualTo:SetUserId().getId()).get().then((productsSnapshot) {
         orderProducts.clear();
         for (var element in productsSnapshot.docs) {
           orderProducts.insert(0, OrderModel.fromFirestore(element));

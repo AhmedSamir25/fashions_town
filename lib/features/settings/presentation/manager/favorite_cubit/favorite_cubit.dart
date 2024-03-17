@@ -18,7 +18,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   Future<List<FavoriteModel>> getFavoriteData() async {
     try {
       emit(LoadingFavoriteProductData());
-      await productDB.get().then((productsSnapshot) {
+      await productDB.orderBy('time',
+      descending: false).get().then((productsSnapshot) {
         favoriteProduct.clear();
         for (var element in productsSnapshot.docs) {
           favoriteProduct.insert(0, FavoriteModel.fromFirestore(element));
@@ -72,15 +73,6 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 }
 
-//  void controlTheNumberOfItem({required String productId, required int valueButton}) async{
-//   await FirebaseFirestore.instance
-//           .collection('User')
-//           .doc(SetUserId().getId())
-//           .collection('Cart')
-//           .doc(productId)
-//     .update({'productCount': valueButton});
-//  }
-  
   bool isProductsInFavorite({ String? productId}) {
     
     bool checkFavoriteProduct = favoriteProduct.any((product) => product.productId == productId);

@@ -37,15 +37,17 @@ class FavoriteView extends StatelessWidget {
           } else if (state is FieldGetFavoriteProductData) {
             return Text(state.massage);
           } else {
-            return ListView.builder(
-                itemCount: 10,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.18,
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: const LoadingShimmer());
-                });
+            return Expanded(
+              child: ListView.builder(
+                  itemCount: 10,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: const LoadingShimmer());
+                  }),
+            );
           }
         },
       ),

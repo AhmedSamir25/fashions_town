@@ -8,7 +8,7 @@ import 'package:fashionstown/features/home_details/presentation/view/home_detail
 import 'package:fashionstown/features/settings/presentation/view/order_view.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/add_adress.dart';
 import 'package:fashionstown/features/settings/presentation/view/widgets/add_phone_view.dart';
-import 'package:fashionstown/features/settings/presentation/view/widgets/favorite_view.dart';
+import 'package:fashionstown/features/settings/presentation/view/favorite_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
